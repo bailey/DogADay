@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Photos
 
 struct Constants {
     static let albumName = "DogADay"
@@ -18,7 +19,27 @@ class MainViewController: UITabBarController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        initializeSDPhotosHelper()
+        if PHPhotoLibrary.authorizationStatus() != PHAuthorizationStatus.authorized {
+            PHPhotoLibrary.requestAuthorization({ (status: PHAuthorizationStatus) -> Void in
+                ()
+            })
+        }
+
+        if PHPhotoLibrary.authorizationStatus() == PHAuthorizationStatus.authorized {
+            self.initializeSDPhotosHelper()
+        } else {
+            PHPhotoLibrary.requestAuthorization(requestAuthorizationHandler)
+        }
+    }
+    
+    private func requestAuthorizationHandler(status: PHAuthorizationStatus) {
+        if PHPhotoLibrary.authorizationStatus() == PHAuthorizationStatus.authorized {
+            // ideally this ensures the creation of the photo album even if authorization wasn't prompted till after init was done
+            print("Trying again to create the album")
+            self.initializeSDPhotosHelper()
+        } else {
+            print("Error we were unable to create album")
+        }
     }
     
     private func initializeSDPhotosHelper() {
