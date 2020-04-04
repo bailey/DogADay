@@ -6,16 +6,6 @@
 //  Copyright © 2020 Bailey Brooks. All rights reserved.
 //
 
-// PhotoPicker sample for use in the authorization code below
-//Copyright © 2019 Apple Inc.
-//
-//Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-//
-//The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-//
-//THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-
 import UIKit
 import AVFoundation
 import MobileCoreServices
@@ -27,12 +17,18 @@ class CameraViewController: UIViewController, UINavigationControllerDelegate {
     @IBOutlet weak var capturePreviewView: UIView!
     
     let captureSession = AVCaptureSession()
-    let stillImageOutput = AVCaptureStillImageOutput()
+    //let stillImageOutput = AVCaptureStillImageOutput()
+    
+    let previewLayer = AVCaptureVideoPreviewLayer() // TODO is this a bug? later on we construct it with a session as an object
     
     var photoOutput: AVCapturePhotoOutput?
     var photoCaptureCompletionBlock: ((UIImage?, Error?) -> Void)?
 
     var flashMode = AVCaptureDevice.FlashMode.off
+
+    var windowOrientation: UIInterfaceOrientation {
+        return view.window?.windowScene?.interfaceOrientation ?? .unknown
+    }
     
     // Communicate with the session and other session objects on this queue.
     // private let sessionQueue = DispatchQueue(label: "session queue")
@@ -105,55 +101,70 @@ class CameraViewController: UIViewController, UINavigationControllerDelegate {
             return
         }
         
+        // Set up device
         do {
-          captureSession.addInput(try AVCaptureDeviceInput(device: captureDevice))
+        
+            let videoDeviceInput = try AVCaptureDeviceInput(device: captureDevice)
+        
+            // Add input
+            if !captureSession.canAddInput(videoDeviceInput) {
+                print("Error - Couldn't add video device input to the session")
+                return
+            }
+            
+            captureSession.addInput(videoDeviceInput)
+            
+            captureSession.sessionPreset = AVCaptureSession.Preset.photo
+            captureSession.startRunning()
+
+           
+            // display the incoming camera image
+            let previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
+            previewLayer.bounds = view.bounds
+            previewLayer.position = CGPoint(x: view.bounds.midX, y: view.bounds.midY)
+            previewLayer.connection?.videoOrientation = .portrait
+            previewLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
+
+            //        view.layer.insertSublayer(self.previewLayer!, at: 0) ??
+            //        self.previewLayer?.frame = view.frame ??
+
+           // DispatchQueue.main.async {
+//           var initialVideoOrientation: AVCaptureVideoOrientation = .portrait
+//           if self.windowOrientation != .unknown {
+//            if let videoOrientation = AVCaptureVideoOrientation(rawValue: self.windowOrientation.rawValue) {
+//                   initialVideoOrientation = videoOrientation
+//               }
+//           }
+//
+           // previewLayer.connection?.videoOrientation = initialVideoOrientation
+            
+            // display the last dog image
+            let previousDogImage = UIImage(named: "test.png")?.cgImage
+            let overlayLayer = CALayer()
+            overlayLayer.frame = view.bounds
+            overlayLayer.contents = previousDogImage
+            overlayLayer.opacity = 0.3
+            overlayLayer.contentsGravity = CALayerContentsGravity.resizeAspect
+            overlayLayer.isGeometryFlipped = true
+            
+            capturePreviewView.layer.addSublayer(previewLayer)
+            capturePreviewView.layer.addSublayer(overlayLayer)
+            
+            // Set up output
+            self.photoOutput = AVCapturePhotoOutput()
+            self.photoOutput?.isHighResolutionCaptureEnabled = true
+            self.photoOutput?.maxPhotoQualityPrioritization = .quality
+            self.photoOutput!.setPreparedPhotoSettingsArray([AVCapturePhotoSettings(format: [AVVideoCodecKey : AVVideoCodecType.jpeg])], completionHandler: nil)
+            
+            if captureSession.canAddOutput(self.photoOutput!) {
+                captureSession.addOutput(self.photoOutput!)
+            }
+            else {
+                print("Error - can't add photoOutput")
+            }
         } catch {
-          print(error)
-        }
-        
-        captureSession.sessionPreset = AVCaptureSession.Preset.photo
-        captureSession.startRunning()
-        stillImageOutput.outputSettings = [AVVideoCodecKey:AVVideoCodecType.jpeg]
-        if captureSession.canAddOutput(stillImageOutput) {
-            captureSession.addOutput(stillImageOutput)
-        }
-        
-        // display the incoming camera image
-        let previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-        previewLayer.bounds = view.bounds
-        previewLayer.position = CGPoint(x: view.bounds.midX, y: view.bounds.midY)
-        previewLayer.connection?.videoOrientation = .portrait
-        previewLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
-
-        //        view.layer.insertSublayer(self.previewLayer!, at: 0) ??
-        //        self.previewLayer?.frame = view.frame ??
-
-        
-        // display the last dog image
-        let previousDogImage = UIImage(named: "test.png")?.cgImage
-        let overlayLayer = CALayer()
-        overlayLayer.frame = view.bounds
-        overlayLayer.contents = previousDogImage
-        overlayLayer.opacity = 0.3
-        overlayLayer.contentsGravity = CALayerContentsGravity.resizeAspect
-        overlayLayer.isGeometryFlipped = true
-        
-        // Create the UIView
-        //let cameraPreview = UIView(frame: CGRect(x: 0.0, y: 0.0, width: view.bounds.size.width, height: view.bounds.size.height))
-        capturePreviewView.layer.addSublayer(previewLayer)
-        capturePreviewView.layer.addSublayer(overlayLayer)
-        
-        //view.addSubview(cameraPreview)
-//        view.layer.insertSublayer(<#T##layer: CALayer##CALayer#>, at: <#T##UInt32#>)
-//        view.layer.insertSublayer(cameraPreview, at: 0)
-//        self.cameraPreview.frame = view.frame
-        
-        // Set up output
-        self.photoOutput = AVCapturePhotoOutput()
-        self.photoOutput!.setPreparedPhotoSettingsArray([AVCapturePhotoSettings(format: [AVVideoCodecKey : AVVideoCodecType.jpeg])], completionHandler: nil)
-        
-        if captureSession.canAddOutput(self.photoOutput!) {
-            captureSession.addOutput(self.photoOutput!)
+             print(error)
+             return
         }
     }
     
@@ -163,10 +174,28 @@ class CameraViewController: UIViewController, UINavigationControllerDelegate {
             return
         }
         
-        let settings = AVCapturePhotoSettings() // AVCapturePhotoSettings.init(format: [AVVideoCodecKey: AVVideoCodecType.jpeg])
-        settings.flashMode = self.flashMode
+//        // Set orientation
+//        let videoPreviewLayerOrientation = previewLayer.connection?.videoOrientation
+//        if let photoOutputConnection = self.photoOutput?.connection(with: .video) {
+//            photoOutputConnection.videoOrientation = videoPreviewLayerOrientation!
+//        }
+//
+//
+//
+//        
+            
+        // Set capture settings
+        var photoSettings = AVCapturePhotoSettings()
+        if  self.photoOutput?.availablePhotoCodecTypes.contains(.hevc) ?? false {
+            photoSettings = AVCapturePhotoSettings(format: [AVVideoCodecKey: AVVideoCodecType.hevc])
+        }
+
+        photoSettings.isHighResolutionPhotoEnabled = true
+        photoSettings.photoQualityPrioritization = .quality
+        photoSettings.flashMode = self.flashMode
         
-        self.photoOutput?.capturePhoto(with: settings, delegate: self)
+        // Take photo
+        self.photoOutput?.capturePhoto(with: photoSettings, delegate: self)
         self.photoCaptureCompletionBlock = completion
     }
 }
@@ -208,10 +237,24 @@ extension CameraViewController: AVCapturePhotoCaptureDelegate {
 
         // Convert cropped image ref to UIImage
         let imageToSave = UIImage(cgImage: imageRef, scale: 1.0, orientation: .down)
-        UIImageWriteToSavedPhotosAlbum(imageToSave, nil, nil, nil)
-
+        
+        // Save to album
+        SDPhotosHelper.addNewImage(imageToSave, toAlbum: Constants.albumName, onSuccess: { ( identifier) in
+               print("Saved image successfully, identifier is \(identifier)")
+               let alert = UIAlertController.init(title: "Success", message: "Image added, id : \(identifier)", preferredStyle: .alert)
+               let actionOk = UIAlertAction.init(title: "OK", style: .cancel, handler: nil)
+               alert.addAction(actionOk)
+               OperationQueue.main.addOperation({
+                   self.present(alert, animated: true, completion: nil)
+               })
+           }) { (error) in
+               if let error = error {
+                   print("Error in creating album : \(error.localizedDescription)")
+               }
+           }
+    
         // Stop video capturing session (Freeze preview)
-        captureSession.stopRunning()
+        //captureSession.stopRunning()
     }
     
 //    public func photoOutput(_ captureOutput: AVCapturePhotoOutput, didFinishProcessingPhoto photoSampleBuffer: CMSampleBuffer?, previewPhoto previewPhotoSampleBuffer: CMSampleBuffer?,
