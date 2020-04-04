@@ -23,9 +23,7 @@ class PhotosViewController : UIViewController
        left: 10.0,
        bottom: 10.0,
        right: 10.0)
-    
-    var flashMode = AVCaptureDevice.FlashMode.off
-    
+        
     @IBOutlet weak var collectionView: UICollectionView!
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()

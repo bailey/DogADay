@@ -51,6 +51,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ROg-ju-qrR" userLabel="Capture Preview View">
+                                <rect key="frame" x="0.0" y="44" width="414" height="769"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8eB-to-pLD" userLabel="Toggle Flash Button">
                                 <rect key="frame" x="354" y="60" width="44" height="24"/>
                                 <constraints>
@@ -58,6 +62,9 @@
                                     <constraint firstAttribute="width" constant="44" id="MTc-YN-p7c"/>
                                 </constraints>
                                 <state key="normal" title="Button" image="flash_off"/>
+                                <connections>
+                                    <action selector="toggleFlash:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="Ebd-Jp-0GS"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Zr-Ri-VqL">
                                 <rect key="frame" x="179.5" y="742" width="55" height="55"/>
@@ -67,10 +74,17 @@
                                     <constraint firstAttribute="height" constant="55" id="ypW-w2-yms"/>
                                 </constraints>
                                 <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="captureImage:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="5Hr-YE-Q88"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="ROg-ju-qrR" firstAttribute="leading" secondItem="O1u-W8-tvY" secondAttribute="leading" id="9ay-0a-kFy"/>
+                            <constraint firstItem="ROg-ju-qrR" firstAttribute="top" secondItem="O1u-W8-tvY" secondAttribute="top" id="Kye-5n-ZlT"/>
+                            <constraint firstItem="ROg-ju-qrR" firstAttribute="bottom" secondItem="O1u-W8-tvY" secondAttribute="bottom" id="SWo-qR-z4d"/>
+                            <constraint firstItem="O1u-W8-tvY" firstAttribute="trailing" secondItem="ROg-ju-qrR" secondAttribute="trailing" id="VLb-Ac-08a"/>
                             <constraint firstItem="8eB-to-pLD" firstAttribute="top" secondItem="O1u-W8-tvY" secondAttribute="top" constant="16" id="Y4L-Iw-gv6"/>
                             <constraint firstItem="O1u-W8-tvY" firstAttribute="trailing" secondItem="8eB-to-pLD" secondAttribute="trailing" constant="16" id="a8B-Wu-WQa"/>
                             <constraint firstItem="7Zr-Ri-VqL" firstAttribute="centerX" secondItem="QS5-Rx-YEW" secondAttribute="centerX" id="bUo-m3-CeV"/>
@@ -79,6 +93,11 @@
                         <viewLayoutGuide key="safeArea" id="O1u-W8-tvY"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Camera" image="camera.fill" catalog="system" id="cPa-gy-q4n"/>
+                    <connections>
+                        <outlet property="captureImageButton" destination="7Zr-Ri-VqL" id="Pif-Sb-rBd"/>
+                        <outlet property="capturePreviewView" destination="ROg-ju-qrR" id="xns-JK-JnS"/>
+                        <outlet property="toggleFlashButton" destination="8eB-to-pLD" id="WoW-qE-KXH"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
             </objects>
