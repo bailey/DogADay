@@ -96,55 +96,82 @@
             </objects>
             <point key="canvasLocation" x="808.69565217391312" y="28.794642857142854"/>
         </scene>
-        <!--Lapse View Controller-->
-        <scene sceneID="arN-5o-k3m">
+        <!--Photos View Controller-->
+        <scene sceneID="SBb-iw-Xqu">
             <objects>
-                <collectionViewController id="CHe-Wp-uQq" userLabel="Lapse View Controller" customClass="LapseViewController" customModule="DogADay" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="roF-Wk-XZ6">
+                <viewController id="Qxk-rz-jJi" userLabel="Photos View Controller" customClass="PhotosViewController" customModule="DogADay" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="TYf-bZ-UFX">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="S6u-7D-Ols">
-                            <size key="itemSize" width="150" height="150"/>
-                            <size key="estimatedItemSize" width="150" height="150"/>
-                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                        </collectionViewFlowLayout>
-                        <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ImageCell" id="XjK-fy-KBt" customClass="ImageCell" customModule="DogADay" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="9tL-rW-4HT">
-                                    <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="i4e-YE-SOT">
-                                            <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
-                                        </imageView>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstItem="i4e-YE-SOT" firstAttribute="leading" secondItem="9tL-rW-4HT" secondAttribute="leading" id="Xeq-fv-Bae"/>
-                                        <constraint firstItem="i4e-YE-SOT" firstAttribute="top" secondItem="9tL-rW-4HT" secondAttribute="top" id="c8V-2E-HAo"/>
-                                        <constraint firstAttribute="trailing" secondItem="i4e-YE-SOT" secondAttribute="trailing" id="iM5-v7-UPy"/>
-                                        <constraint firstAttribute="bottom" secondItem="i4e-YE-SOT" secondAttribute="bottom" id="m7m-eq-b1L"/>
-                                    </constraints>
-                                </collectionViewCellContentView>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="7bv-3S-k8m">
+                                <rect key="frame" x="0.0" y="44" width="414" height="769"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="yOA-Mg-aIQ">
+                                    <size key="itemSize" width="100" height="100"/>
+                                    <size key="estimatedItemSize" width="100" height="100"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" reuseIdentifier="ImageCell" id="and-EU-5vh" userLabel="Image Cell" customClass="ImageCell" customModule="DogADay" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="HKJ-fk-6II">
+                                            <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TA1-gy-4tm">
+                                                    <rect key="frame" x="8" y="8" width="84" height="84"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
+                                            </subviews>
+                                        </collectionViewCellContentView>
+                                        <connections>
+                                            <outlet property="newImageView" destination="TA1-gy-4tm" id="iii-cm-bfW"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
                                 <connections>
-                                    <outlet property="imageView" destination="i4e-YE-SOT" id="mgr-9K-3Gb"/>
+                                    <outlet property="dataSource" destination="Qxk-rz-jJi" id="u8t-FY-aR2"/>
+                                    <outlet property="delegate" destination="Qxk-rz-jJi" id="fTV-81-hkO"/>
                                 </connections>
-                            </collectionViewCell>
-                        </cells>
-                        <connections>
-                            <outlet property="dataSource" destination="CHe-Wp-uQq" id="oMl-Px-aCG"/>
-                            <outlet property="delegate" destination="CHe-Wp-uQq" id="RgP-2E-yQ7"/>
-                        </connections>
-                    </collectionView>
-                    <tabBarItem key="tabBarItem" title="Item" id="0Jy-Zr-cLP"/>
-                </collectionViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="9qH-A7-NgO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                            </collectionView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dh2-uz-sZz">
+                                <rect key="frame" x="319" y="729" width="80" height="69"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="80" id="BRv-t5-Sm8"/>
+                                    <constraint firstAttribute="height" constant="69" id="eIm-Bb-hzO"/>
+                                </constraints>
+                                <state key="normal" title="Button" image="arrow.up.right.video.fill" catalog="system">
+                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="40" scale="large" weight="regular"/>
+                                </state>
+                                <connections>
+                                    <action selector="createVideoButtonClicked:" destination="Qxk-rz-jJi" eventType="touchUpInside" id="JWz-Ed-ykC"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="7bv-3S-k8m" firstAttribute="leading" secondItem="dGS-tS-4fR" secondAttribute="leading" id="6wd-61-Xhi"/>
+                            <constraint firstItem="dGS-tS-4fR" firstAttribute="bottom" secondItem="Dh2-uz-sZz" secondAttribute="bottom" constant="15" id="J2o-rO-fYr"/>
+                            <constraint firstItem="dGS-tS-4fR" firstAttribute="bottom" secondItem="7bv-3S-k8m" secondAttribute="bottom" id="Kc0-7y-LKd"/>
+                            <constraint firstItem="7bv-3S-k8m" firstAttribute="top" secondItem="dGS-tS-4fR" secondAttribute="top" id="XMi-jM-NKo"/>
+                            <constraint firstItem="dGS-tS-4fR" firstAttribute="trailing" secondItem="Dh2-uz-sZz" secondAttribute="trailing" constant="15" id="aDy-Bg-YPb"/>
+                            <constraint firstItem="dGS-tS-4fR" firstAttribute="trailing" secondItem="7bv-3S-k8m" secondAttribute="trailing" id="w2b-vE-ahO"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="dGS-tS-4fR"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Item" id="KEz-6a-TUx"/>
+                    <connections>
+                        <outlet property="collectionView" destination="7bv-3S-k8m" id="S2f-oe-HWm"/>
+                        <outlet property="createVideoButton" destination="Dh2-uz-sZz" id="5GI-rc-ZaC"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vc8-gN-be7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="808.69565217391312" y="677.67857142857144"/>
+            <point key="canvasLocation" x="808.69565217391312" y="688.39285714285711"/>
         </scene>
         <!--Main View Controller-->
         <scene sceneID="yl2-sM-qoP">
@@ -158,7 +185,7 @@
                     <connections>
                         <segue destination="9pv-A4-QxB" kind="relationship" relationship="viewControllers" id="u7Y-xg-7CH"/>
                         <segue destination="8rJ-Kc-sve" kind="relationship" relationship="viewControllers" id="lzU-1b-eKA"/>
-                        <segue destination="CHe-Wp-uQq" kind="relationship" relationship="viewControllers" id="EzN-SK-dkK"/>
+                        <segue destination="Qxk-rz-jJi" kind="relationship" relationship="viewControllers" id="Tm7-8a-epL"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>
@@ -167,6 +194,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="arrow.up.right.video.fill" catalog="system" width="64" height="40"/>
         <image name="camera.fill" catalog="system" width="64" height="48"/>
         <image name="home" width="29" height="29"/>
     </resources>
