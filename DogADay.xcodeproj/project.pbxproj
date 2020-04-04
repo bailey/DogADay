@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		4F8E4324243833AE00D67965 /* LapseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8E4323243833AE00D67965 /* LapseViewController.swift */; };
 		4F8E4326243833D900D67965 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8E4325243833D900D67965 /* MainViewController.swift */; };
+		4F8E432924383F7400D67965 /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8E432824383F7400D67965 /* ImageCell.swift */; };
+		4F8E432B243846BF00D67965 /* SDPhotosHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8E432A243846BF00D67965 /* SDPhotosHelper.swift */; };
 		D4290CF52435756F00FB5AAA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4290CF42435756F00FB5AAA /* AppDelegate.swift */; };
 		D4290CF72435756F00FB5AAA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4290CF62435756F00FB5AAA /* SceneDelegate.swift */; };
 		D4290CF92435756F00FB5AAA /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4290CF82435756F00FB5AAA /* HomeViewController.swift */; };
@@ -21,6 +23,8 @@
 /* Begin PBXFileReference section */
 		4F8E4323243833AE00D67965 /* LapseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LapseViewController.swift; sourceTree = "<group>"; };
 		4F8E4325243833D900D67965 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		4F8E432824383F7400D67965 /* ImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
+		4F8E432A243846BF00D67965 /* SDPhotosHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDPhotosHelper.swift; sourceTree = "<group>"; };
 		D4290CF12435756F00FB5AAA /* DogADay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DogADay.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4290CF42435756F00FB5AAA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D4290CF62435756F00FB5AAA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -43,6 +47,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4F8E432C2438491600D67965 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				4F8E432A243846BF00D67965 /* SDPhotosHelper.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		D4290CE82435756F00FB5AAA = {
 			isa = PBXGroup;
 			children = (
@@ -62,11 +74,13 @@
 		D4290CF32435756F00FB5AAA /* DogADay */ = {
 			isa = PBXGroup;
 			children = (
+				4F8E432C2438491600D67965 /* Helpers */,
 				D4290CFC2435756F00FB5AAA /* Main.storyboard */,
 				D4290CF42435756F00FB5AAA /* AppDelegate.swift */,
 				D4290CFA2435756F00FB5AAA /* CameraViewController.swift */,
 				D4290CF82435756F00FB5AAA /* HomeViewController.swift */,
 				4F8E4323243833AE00D67965 /* LapseViewController.swift */,
+				4F8E432824383F7400D67965 /* ImageCell.swift */,
 				4F8E4325243833D900D67965 /* MainViewController.swift */,
 				D4290CF62435756F00FB5AAA /* SceneDelegate.swift */,
 				D4290CFF2435757200FB5AAA /* Assets.xcassets */,
@@ -149,9 +163,11 @@
 			files = (
 				D4290CFB2435756F00FB5AAA /* CameraViewController.swift in Sources */,
 				4F8E4324243833AE00D67965 /* LapseViewController.swift in Sources */,
+				4F8E432B243846BF00D67965 /* SDPhotosHelper.swift in Sources */,
 				D4290CF92435756F00FB5AAA /* HomeViewController.swift in Sources */,
 				4F8E4326243833D900D67965 /* MainViewController.swift in Sources */,
 				D4290CF52435756F00FB5AAA /* AppDelegate.swift in Sources */,
+				4F8E432924383F7400D67965 /* ImageCell.swift in Sources */,
 				D4290CF72435756F00FB5AAA /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

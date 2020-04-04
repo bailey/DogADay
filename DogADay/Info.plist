@@ -65,12 +65,11 @@
 	</array>
 	<key>NSCameraUsageDescription</key>
 	<string>The application needs use of the camera device</string>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>The application needs access to Photos to save images</string>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationPortraitUpsideDown</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 </dict>
 </plist>
