@@ -45,6 +45,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4F86600F243909B000AF90DB /* License */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = License;
+			sourceTree = "<group>";
+		};
 		4F8E432C2438491600D67965 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
@@ -72,6 +79,7 @@
 		D4290CF32435756F00FB5AAA /* DogADay */ = {
 			isa = PBXGroup;
 			children = (
+				4F86600F243909B000AF90DB /* License */,
 				4F8E432C2438491600D67965 /* Helpers */,
 				D4290CFC2435756F00FB5AAA /* Main.storyboard */,
 				D4290CF42435756F00FB5AAA /* AppDelegate.swift */,

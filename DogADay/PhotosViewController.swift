@@ -24,6 +24,8 @@ class PhotosViewController : UIViewController
        bottom: 10.0,
        right: 10.0)
     
+    var flashMode = AVCaptureDevice.FlashMode.off
+    
     @IBOutlet weak var collectionView: UICollectionView!
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -33,6 +35,7 @@ class PhotosViewController : UIViewController
         }
     }
 }
+
 
 // MARK: - UICollectionViewDataSource
 extension PhotosViewController: UICollectionViewDataSource {
