@@ -7,21 +7,25 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4F8E4324243833AE00D67965 /* LapseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8E4323243833AE00D67965 /* LapseViewController.swift */; };
+		4F8E4326243833D900D67965 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8E4325243833D900D67965 /* MainViewController.swift */; };
 		D4290CF52435756F00FB5AAA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4290CF42435756F00FB5AAA /* AppDelegate.swift */; };
 		D4290CF72435756F00FB5AAA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4290CF62435756F00FB5AAA /* SceneDelegate.swift */; };
-		D4290CF92435756F00FB5AAA /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4290CF82435756F00FB5AAA /* FirstViewController.swift */; };
-		D4290CFB2435756F00FB5AAA /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4290CFA2435756F00FB5AAA /* SecondViewController.swift */; };
+		D4290CF92435756F00FB5AAA /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4290CF82435756F00FB5AAA /* HomeViewController.swift */; };
+		D4290CFB2435756F00FB5AAA /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4290CFA2435756F00FB5AAA /* CameraViewController.swift */; };
 		D4290CFE2435756F00FB5AAA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D4290CFC2435756F00FB5AAA /* Main.storyboard */; };
 		D4290D002435757200FB5AAA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D4290CFF2435757200FB5AAA /* Assets.xcassets */; };
 		D4290D032435757200FB5AAA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D4290D012435757200FB5AAA /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4F8E4323243833AE00D67965 /* LapseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LapseViewController.swift; sourceTree = "<group>"; };
+		4F8E4325243833D900D67965 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		D4290CF12435756F00FB5AAA /* DogADay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DogADay.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4290CF42435756F00FB5AAA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D4290CF62435756F00FB5AAA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		D4290CF82435756F00FB5AAA /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
-		D4290CFA2435756F00FB5AAA /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
+		D4290CF82435756F00FB5AAA /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		D4290CFA2435756F00FB5AAA /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		D4290CFD2435756F00FB5AAA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D4290CFF2435757200FB5AAA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D4290D022435757200FB5AAA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -58,11 +62,13 @@
 		D4290CF32435756F00FB5AAA /* DogADay */ = {
 			isa = PBXGroup;
 			children = (
-				D4290CF42435756F00FB5AAA /* AppDelegate.swift */,
-				D4290CF62435756F00FB5AAA /* SceneDelegate.swift */,
-				D4290CF82435756F00FB5AAA /* FirstViewController.swift */,
-				D4290CFA2435756F00FB5AAA /* SecondViewController.swift */,
 				D4290CFC2435756F00FB5AAA /* Main.storyboard */,
+				D4290CF42435756F00FB5AAA /* AppDelegate.swift */,
+				D4290CFA2435756F00FB5AAA /* CameraViewController.swift */,
+				D4290CF82435756F00FB5AAA /* HomeViewController.swift */,
+				4F8E4323243833AE00D67965 /* LapseViewController.swift */,
+				4F8E4325243833D900D67965 /* MainViewController.swift */,
+				D4290CF62435756F00FB5AAA /* SceneDelegate.swift */,
 				D4290CFF2435757200FB5AAA /* Assets.xcassets */,
 				D4290D012435757200FB5AAA /* LaunchScreen.storyboard */,
 				D4290D042435757200FB5AAA /* Info.plist */,
@@ -141,8 +147,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D4290CFB2435756F00FB5AAA /* SecondViewController.swift in Sources */,
-				D4290CF92435756F00FB5AAA /* FirstViewController.swift in Sources */,
+				D4290CFB2435756F00FB5AAA /* CameraViewController.swift in Sources */,
+				4F8E4324243833AE00D67965 /* LapseViewController.swift in Sources */,
+				D4290CF92435756F00FB5AAA /* HomeViewController.swift in Sources */,
+				4F8E4326243833D900D67965 /* MainViewController.swift in Sources */,
 				D4290CF52435756F00FB5AAA /* AppDelegate.swift in Sources */,
 				D4290CF72435756F00FB5AAA /* SceneDelegate.swift in Sources */,
 			);

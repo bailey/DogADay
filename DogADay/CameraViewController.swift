@@ -8,15 +8,18 @@
 
 import UIKit
 
-class SecondViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
-
+class CameraViewController: UIViewController, UINavigationControllerDelegate {
+    @IBOutlet weak var imageView: UIImageView!
+    var imagePicker: UIImagePickerController!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
+    
+}
 
-    @IBOutlet weak var imageView: UIImageView!
-    var imagePicker: UIImagePickerController!
+extension CameraViewController : UIImagePickerControllerDelegate {
     @IBAction func takePhoto(_ sender: Any) {
         imagePicker =  UIImagePickerController()
         imagePicker.delegate = self
