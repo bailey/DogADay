@@ -11,6 +11,7 @@ import UIKit
 // MARK: - ImageCell
 class ImageCell: UICollectionViewCell {
     @IBOutlet weak var newImageView: UIImageView!
+    @IBOutlet weak var photoDateView: UITextField!
 }
 
 // MARK: - PhotosViewController
@@ -115,3 +116,4 @@ extension PhotosViewController {
 //        https://stackoverflow.com/questions/40883784/build-video-from-uiimage-using-swift
     }
 }
+
