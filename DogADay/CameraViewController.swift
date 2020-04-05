@@ -17,14 +17,17 @@ class CameraViewController: UIViewController, UINavigationControllerDelegate {
     @IBOutlet weak var capturePreviewView: UIView!
     
     let captureSession = AVCaptureSession()
-    //let stillImageOutput = AVCaptureStillImageOutput()
     
     let previewLayer = AVCaptureVideoPreviewLayer() // TODO is this a bug? later on we construct it with a session as an object
     
     var photoOutput: AVCapturePhotoOutput?
     var photoCaptureCompletionBlock: ((UIImage?, Error?) -> Void)?
+    
+    var captureDevice: AVCaptureDevice?
 
     var flashMode = AVCaptureDevice.FlashMode.off
+    
+    var currentImage: UIImage?
 
     var windowOrientation: UIInterfaceOrientation {
         return view.window?.windowScene?.interfaceOrientation ?? .unknown
@@ -93,10 +96,28 @@ class CameraViewController: UIViewController, UINavigationControllerDelegate {
                 self.showCameraUsingAV()
             //}
         }
+                
+        let mytapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(myTapAction))
+        self.view.addGestureRecognizer(mytapGestureRecognizer)
+        
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        if captureSession.isRunning {
+            captureSession.stopRunning()
+        } else {
+            captureSession.startRunning()
+        }
+    }
+    
+    
+}
+
+extension CameraViewController {
+    
     func showCameraUsingAV() {
-        guard let captureDevice = AVCaptureDevice.default(for: .video) else {
+        self.captureDevice = AVCaptureDevice.default(for: .video)
+        guard let captureDevice = self.captureDevice else {
             print("Error - No capture device")
             return
         }
@@ -143,7 +164,7 @@ class CameraViewController: UIViewController, UINavigationControllerDelegate {
             let overlayLayer = CALayer()
             overlayLayer.frame = view.bounds
             overlayLayer.contents = previousDogImage
-            overlayLayer.opacity = 0.3
+            overlayLayer.opacity = 0.0
             overlayLayer.contentsGravity = CALayerContentsGravity.resizeAspect
             overlayLayer.isGeometryFlipped = true
             
@@ -167,40 +188,19 @@ class CameraViewController: UIViewController, UINavigationControllerDelegate {
              return
         }
     }
-    
-    func captureImage(completion: @escaping (UIImage?, Error?) -> Void) {
-        if !captureSession.isRunning {
-            completion(nil, CameraViewControllerError.captureSessionIsMissing);
-            return
-        }
-        
-//        // Set orientation
-//        let videoPreviewLayerOrientation = previewLayer.connection?.videoOrientation
-//        if let photoOutputConnection = self.photoOutput?.connection(with: .video) {
-//            photoOutputConnection.videoOrientation = videoPreviewLayerOrientation!
-//        }
-//
-//
-//
-//        
-            
-        // Set capture settings
-        var photoSettings = AVCapturePhotoSettings()
-        if  self.photoOutput?.availablePhotoCodecTypes.contains(.hevc) ?? false {
-            photoSettings = AVCapturePhotoSettings(format: [AVVideoCodecKey: AVVideoCodecType.hevc])
-        }
-
-        photoSettings.isHighResolutionPhotoEnabled = true
-        photoSettings.photoQualityPrioritization = .quality
-        photoSettings.flashMode = self.flashMode
-        
-        // Take photo
-        self.photoOutput?.capturePhoto(with: photoSettings, delegate: self)
-        self.photoCaptureCompletionBlock = completion
-    }
 }
 
 extension CameraViewController: AVCapturePhotoCaptureDelegate {
+//    func photoOutput(_ captureOutput: AVCapturePhotoOutput,
+//                     didFinishProcessingPhoto photoSampleBuffer: CMSampleBuffer?,
+//                     previewPhoto previewPhotoSampleBuffer: CMSampleBuffer?,
+//                    resolvedSettings: AVCaptureResolvedPhotoSettings,
+//                    bracketSettings: AVCaptureBracketedStillImageSettings?,
+//                    error: Error?)
+//    {
+//
+//    }
+    
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
 
         // Check if there is any error in capturing
@@ -208,13 +208,13 @@ extension CameraViewController: AVCapturePhotoCaptureDelegate {
             print("Fail to capture photo: \(String(describing: error))")
             return
         }
-
+        
         // Check if the pixel buffer could be converted to image data
         guard let imageData = photo.fileDataRepresentation() else {
             print("Fail to convert pixel buffer")
             return
         }
-
+        
         // Check if UIImage could be initialized with image data
         guard let capturedImage = UIImage.init(data: imageData , scale: 1.0) else {
             print("Fail to convert image data to UIImage")
@@ -238,40 +238,56 @@ extension CameraViewController: AVCapturePhotoCaptureDelegate {
         // Convert cropped image ref to UIImage
         let imageToSave = UIImage(cgImage: imageRef, scale: 1.0, orientation: .down)
         
-        // Save to album
-        SDPhotosHelper.addNewImage(imageToSave, toAlbum: Constants.albumName, onSuccess: { ( identifier) in
-               print("Saved image successfully, identifier is \(identifier)")
-               let alert = UIAlertController.init(title: "Success", message: "Image added, id : \(identifier)", preferredStyle: .alert)
-               let actionOk = UIAlertAction.init(title: "OK", style: .cancel, handler: nil)
-               alert.addAction(actionOk)
-               OperationQueue.main.addOperation({
-                   self.present(alert, animated: true, completion: nil)
-               })
-           }) { (error) in
-               if let error = error {
-                   print("Error in creating album : \(error.localizedDescription)")
-               }
-           }
-    
+        
+        // Show thumbnail
+        self.currentImage = imageToSave
+        self.showImage()
+
         // Stop video capturing session (Freeze preview)
         //captureSession.stopRunning()
     }
     
-//    public func photoOutput(_ captureOutput: AVCapturePhotoOutput, didFinishProcessingPhoto photoSampleBuffer: CMSampleBuffer?, previewPhoto previewPhotoSampleBuffer: CMSampleBuffer?,
-//                        resolvedSettings: AVCaptureResolvedPhotoSettings, bracketSettings: AVCaptureBracketedStillImageSettings?, error: Swift.Error?) {
-//
-//        if let error = error { self.photoCaptureCompletionBlock?(nil, error) }
-//
-//        else if let buffer = photoSampleBuffer, let data = AVCapturePhotoOutput.jpegPhotoDataRepresentation(forJPEGSampleBuffer: buffer, previewPhotoSampleBuffer: nil),
-//            let image = UIImage(data: data) {
-//
-//            self.photoCaptureCompletionBlock?(image, nil)
-//        }
-//
-//        else {
-//            self.photoCaptureCompletionBlock?(nil, CameraControllerError.unknown)
-//        }
-//    }
+    func showImage() {
+        let imageReviewViewController = self.storyboard?.instantiateViewController(withIdentifier: "ImageReviewViewController") as! ImageReviewViewController
+        
+        imageReviewViewController.image = self.currentImage
+        
+        imageReviewViewController.hidesBottomBarWhenPushed = true
+
+        present(imageReviewViewController, animated: true, completion: nil)
+    }
+}
+
+extension CameraViewController {
+    @objc func myTapAction(recognizer: UITapGestureRecognizer) {
+        let location = recognizer.location(in: recognizer.view)
+        let captureDeviceLocation = previewLayer.captureDevicePointConverted(fromLayerPoint: location)
+        focus(at: captureDeviceLocation)
+    }
+
+    // In your camera controller
+    func focus(at point: CGPoint) {
+        guard let device = captureDevice else {
+            return
+        }
+
+        guard device.isFocusPointOfInterestSupported, device.isExposurePointOfInterestSupported else {
+            return
+        }
+
+        do {
+            try device.lockForConfiguration()
+            device.focusPointOfInterest = point
+            device.exposurePointOfInterest = point
+
+            device.focusMode = .continuousAutoFocus
+            device.exposureMode = .continuousAutoExposure
+
+            device.unlockForConfiguration()
+        } catch {
+            print(error)
+        }
+    }
 }
 
 extension CameraViewController {
@@ -288,26 +304,37 @@ extension CameraViewController {
     }
     
     @IBAction func captureImage(_ sender: Any) {
-        captureImage {(image, error) in
-            guard let image = image else {
-                print(error ?? "Image capture error")
-                return
-            }
-            
-//            try? PHPhotoLibrary.shared().performChangesAndWait {
-//                PHAssetChangeRequest.creationRequestForAsset(from: image)
-//            }
+        if !captureSession.isRunning {
+            print("Error - Capture session is not running so can't capture image")
         }
+               
+       //        // Set orientation
+       //        let videoPreviewLayerOrientation = previewLayer.connection?.videoOrientation
+       //        if let photoOutputConnection = self.photoOutput?.connection(with: .video) {
+       //            photoOutputConnection.videoOrientation = videoPreviewLayerOrientation!
+       //        }
+       //
+       //
+       //
+       //
+                   
+           // Set capture settings
+           let photoSettings = AVCapturePhotoSettings(format: [AVVideoCodecKey: AVVideoCodecType.jpeg])
+   //        if  self.photoOutput?.availablePhotoCodecTypes.contains(.hevc) ?? false {
+   //            photoSettings = AVCapturePhotoSettings(format: [AVVideoCodecKey: AVVideoCodecType.hevc])
+   //        }
+
+           photoSettings.isHighResolutionPhotoEnabled = true
+           photoSettings.photoQualityPrioritization = .quality
+           photoSettings.flashMode = self.flashMode
+           
+           // Take photo
+           self.photoOutput?.capturePhoto(with: photoSettings, delegate: self)
     }
 }
 
 extension CameraViewController {
     enum CameraViewControllerError: Swift.Error {
-        case captureSessionAlreadyRunning
         case captureSessionIsMissing
-        case inputsAreInvalid
-        case invalidOperation
-        case noCamerasAvailable
-        case unknown
     }
 }

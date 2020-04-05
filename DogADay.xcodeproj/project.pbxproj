@@ -7,7 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4F55D91D2439986E0023957B /* ImageReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F55D91C2439986E0023957B /* ImageReviewViewController.swift */; };
 		4F86600E2438528F00AF90DB /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F86600D2438528F00AF90DB /* PhotosViewController.swift */; };
+		4F866013243984DC00AF90DB /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 4F866012243984DC00AF90DB /* LICENSE.txt */; };
+		4F8660152439851C00AF90DB /* PhotoAlbumHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8660142439851C00AF90DB /* PhotoAlbumHelper.swift */; };
 		4F8E4326243833D900D67965 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8E4325243833D900D67965 /* MainViewController.swift */; };
 		4F8E432B243846BF00D67965 /* SDPhotosHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8E432A243846BF00D67965 /* SDPhotosHelper.swift */; };
 		D4290CF52435756F00FB5AAA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4290CF42435756F00FB5AAA /* AppDelegate.swift */; };
@@ -20,7 +23,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4F55D91C2439986E0023957B /* ImageReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageReviewViewController.swift; sourceTree = "<group>"; };
 		4F86600D2438528F00AF90DB /* PhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosViewController.swift; sourceTree = "<group>"; };
+		4F866012243984DC00AF90DB /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
+		4F8660142439851C00AF90DB /* PhotoAlbumHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PhotoAlbumHelper.swift; path = DogADay/Helpers/PhotoAlbumHelper.swift; sourceTree = SOURCE_ROOT; };
 		4F8E4325243833D900D67965 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		4F8E432A243846BF00D67965 /* SDPhotosHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDPhotosHelper.swift; sourceTree = "<group>"; };
 		D4290CF12435756F00FB5AAA /* DogADay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DogADay.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -48,6 +54,7 @@
 		4F86600F243909B000AF90DB /* License */ = {
 			isa = PBXGroup;
 			children = (
+				4F866012243984DC00AF90DB /* LICENSE.txt */,
 			);
 			path = License;
 			sourceTree = "<group>";
@@ -55,6 +62,7 @@
 		4F8E432C2438491600D67965 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				4F8660142439851C00AF90DB /* PhotoAlbumHelper.swift */,
 				4F8E432A243846BF00D67965 /* SDPhotosHelper.swift */,
 			);
 			path = Helpers;
@@ -84,6 +92,7 @@
 				D4290CFC2435756F00FB5AAA /* Main.storyboard */,
 				D4290CF42435756F00FB5AAA /* AppDelegate.swift */,
 				D4290CFA2435756F00FB5AAA /* CameraViewController.swift */,
+				4F55D91C2439986E0023957B /* ImageReviewViewController.swift */,
 				D4290CF82435756F00FB5AAA /* HomeViewController.swift */,
 				4F86600D2438528F00AF90DB /* PhotosViewController.swift */,
 				4F8E4325243833D900D67965 /* MainViewController.swift */,
@@ -153,6 +162,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4F866013243984DC00AF90DB /* LICENSE.txt in Resources */,
 				D4290D032435757200FB5AAA /* LaunchScreen.storyboard in Resources */,
 				D4290D002435757200FB5AAA /* Assets.xcassets in Resources */,
 				D4290CFE2435756F00FB5AAA /* Main.storyboard in Resources */,
@@ -167,9 +177,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				4F86600E2438528F00AF90DB /* PhotosViewController.swift in Sources */,
+				4F55D91D2439986E0023957B /* ImageReviewViewController.swift in Sources */,
 				D4290CFB2435756F00FB5AAA /* CameraViewController.swift in Sources */,
 				4F8E432B243846BF00D67965 /* SDPhotosHelper.swift in Sources */,
 				D4290CF92435756F00FB5AAA /* HomeViewController.swift in Sources */,
+				4F8660152439851C00AF90DB /* PhotoAlbumHelper.swift in Sources */,
 				4F8E4326243833D900D67965 /* MainViewController.swift in Sources */,
 				D4290CF52435756F00FB5AAA /* AppDelegate.swift in Sources */,
 				D4290CF72435756F00FB5AAA /* SceneDelegate.swift in Sources */,

@@ -41,7 +41,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="809" y="-603"/>
+            <point key="canvasLocation" x="809" y="-701"/>
         </scene>
         <!--Camera-->
         <scene sceneID="wg7-f3-ORb">
@@ -53,7 +53,7 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ROg-ju-qrR" userLabel="Capture Preview View">
                                 <rect key="frame" x="0.0" y="44" width="414" height="769"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="opaqueSeparatorColor" red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8eB-to-pLD" userLabel="Toggle Flash Button">
                                 <rect key="frame" x="354" y="60" width="44" height="24"/>
@@ -61,7 +61,7 @@
                                     <constraint firstAttribute="height" constant="24.044" id="M7W-vE-B6F"/>
                                     <constraint firstAttribute="width" constant="44" id="MTc-YN-p7c"/>
                                 </constraints>
-                                <state key="normal" title="Button" image="flash_off"/>
+                                <state key="normal" image="flash_off"/>
                                 <connections>
                                     <action selector="toggleFlash:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="Ebd-Jp-0GS"/>
                                 </connections>
@@ -73,7 +73,6 @@
                                     <constraint firstAttribute="width" constant="55" id="n5O-Gq-8Zl"/>
                                     <constraint firstAttribute="height" constant="55" id="ypW-w2-yms"/>
                                 </constraints>
-                                <state key="normal" title="Button"/>
                                 <connections>
                                     <action selector="captureImage:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="5Hr-YE-Q88"/>
                                 </connections>
@@ -97,11 +96,55 @@
                         <outlet property="captureImageButton" destination="7Zr-Ri-VqL" id="Pif-Sb-rBd"/>
                         <outlet property="capturePreviewView" destination="ROg-ju-qrR" id="xns-JK-JnS"/>
                         <outlet property="toggleFlashButton" destination="8eB-to-pLD" id="WoW-qE-KXH"/>
+                        <segue destination="fu9-7A-BlH" kind="presentation" id="vjX-cl-rcM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="808.69565217391312" y="28.794642857142854"/>
+        </scene>
+        <!--Image Review Controller-->
+        <scene sceneID="IV8-Pz-Efi">
+            <objects>
+                <viewController storyboardIdentifier="ImageReviewViewController" id="fu9-7A-BlH" userLabel="Image Review Controller" customClass="ImageReviewViewController" customModule="DogADay" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="1Hh-4R-xFg" userLabel="Image Review View">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="HrT-bU-Oim">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="778"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4k1-hY-aWl">
+                                <rect key="frame" x="322" y="791" width="62" height="41"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <state key="normal" title="Finish">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="finishButtonTapped:" destination="fu9-7A-BlH" eventType="touchUpInside" id="QFr-b7-fMc"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemIndigoColor" red="0.34509803919999998" green="0.33725490200000002" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="4k1-hY-aWl" secondAttribute="bottom" constant="10" id="3PW-mD-UYf"/>
+                            <constraint firstItem="HrT-bU-Oim" firstAttribute="leading" secondItem="IfA-NJ-SSh" secondAttribute="leading" id="52c-mL-LWO"/>
+                            <constraint firstItem="IfA-NJ-SSh" firstAttribute="bottom" secondItem="HrT-bU-Oim" secondAttribute="bottom" constant="30" id="7v2-nK-c2P"/>
+                            <constraint firstItem="IfA-NJ-SSh" firstAttribute="trailing" secondItem="HrT-bU-Oim" secondAttribute="trailing" id="MId-iB-Oai"/>
+                            <constraint firstItem="HrT-bU-Oim" firstAttribute="top" secondItem="IfA-NJ-SSh" secondAttribute="top" id="eTc-lP-Xc1"/>
+                            <constraint firstItem="IfA-NJ-SSh" firstAttribute="trailing" secondItem="4k1-hY-aWl" secondAttribute="trailing" constant="30" id="zLv-cS-1r6"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="IfA-NJ-SSh"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Item" id="POx-Qd-bFR"/>
+                    <navigationItem key="navigationItem" id="Zgd-zm-jdF"/>
+                    <connections>
+                        <outlet property="imageView" destination="HrT-bU-Oim" id="pF7-qY-1OM"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="adL-9c-zHE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1746" y="29"/>
         </scene>
         <!--Photos View Controller-->
         <scene sceneID="SBb-iw-Xqu">
@@ -178,12 +221,13 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vc8-gN-be7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="808.69565217391312" y="688.39285714285711"/>
+            <point key="canvasLocation" x="809" y="772"/>
         </scene>
         <!--Main View Controller-->
         <scene sceneID="yl2-sM-qoP">
             <objects>
                 <tabBarController id="49e-Tb-3d3" customClass="MainViewController" customModule="DogADay" customModuleProvider="target" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="p9j-bz-e0w"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="W28-zg-YXA">
                         <rect key="frame" x="0.0" y="975" width="768" height="49"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
@@ -197,7 +241,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="0.0" y="0.0"/>
+            <point key="canvasLocation" x="-504" y="29"/>
         </scene>
     </scenes>
     <resources>

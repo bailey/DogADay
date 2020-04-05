@@ -35,15 +35,7 @@ class PhotosViewController : UIViewController
         // Save to album
         //SDPhotosHelper.createAlbum(withTitle: <#T##String#>, onResult: <#T##(Bool, Error?) -> Void#>)
         
-        SDPhotosHelper.getImages(fromAlbum: Constants.albumName, onSuccess: {(images) in
-            print("Got images")
-            print(images)
-            print(images.count)
-        }) { (error) in
-            if let error = error {
-                print("Error in creating album : \(error.localizedDescription)")
-            }
-        }}
+       
         
         // Save to album
 //        SDPhotosHelper.addNewImage(imageToSave, toAlbum: Constants.albumName, onSuccess: { ( identifier) in
@@ -58,7 +50,7 @@ class PhotosViewController : UIViewController
 //               if let error = error {
 //                   print("Error in creating album : \(error.localizedDescription)")
 //               }
-//           }
+           }
     }
 
 

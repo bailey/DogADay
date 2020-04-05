@@ -13,6 +13,25 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
+        
+          
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+//        let imageReviewViewController = self.storyboard?.instantiateViewController(withIdentifier: "ImageReviewViewController") as! ImageReviewViewController
+//                  imageReviewViewController.hidesBottomBarWhenPushed = true
+//
+//               present(imageReviewViewController, animated: true, completion: nil)
+//
+//
+//                  print(imageReviewViewController)
+
+               //   self.navigationController?.pushViewController(imageReviewViewController, animated: true)
+                  
+        
     }
 
 
