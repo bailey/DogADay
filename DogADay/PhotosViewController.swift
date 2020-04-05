@@ -31,8 +31,35 @@ class PhotosViewController : UIViewController
         if let flowLayout = self.collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
             flowLayout.itemSize = CGSize(width: self.collectionView.bounds.width, height: 120)
         }
+        
+        // Save to album
+        //SDPhotosHelper.createAlbum(withTitle: <#T##String#>, onResult: <#T##(Bool, Error?) -> Void#>)
+        
+        SDPhotosHelper.getImages(fromAlbum: Constants.albumName, onSuccess: {(images) in
+            print("Got images")
+            print(images)
+            print(images.count)
+        }) { (error) in
+            if let error = error {
+                print("Error in creating album : \(error.localizedDescription)")
+            }
+        }}
+        
+        // Save to album
+//        SDPhotosHelper.addNewImage(imageToSave, toAlbum: Constants.albumName, onSuccess: { ( identifier) in
+//               print("Saved image successfully, identifier is \(identifier)")
+//               let alert = UIAlertController.init(title: "Success", message: "Image added, id : \(identifier)", preferredStyle: .alert)
+//               let actionOk = UIAlertAction.init(title: "OK", style: .cancel, handler: nil)
+//               alert.addAction(actionOk)
+//               OperationQueue.main.addOperation({
+//                   self.present(alert, animated: true, completion: nil)
+//               })
+//           }) { (error) in
+//               if let error = error {
+//                   print("Error in creating album : \(error.localizedDescription)")
+//               }
+//           }
     }
-}
 
 
 // MARK: - UICollectionViewDataSource
