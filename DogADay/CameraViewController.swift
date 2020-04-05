@@ -16,6 +16,8 @@ class CameraViewController: UIViewController, UINavigationControllerDelegate {
     @IBOutlet weak var captureImageButton: UIButton!
     @IBOutlet weak var capturePreviewView: UIView!
     
+    @IBOutlet weak var comeBackLaterView: UIView!
+    
     let captureSession = AVCaptureSession()
     
     let previewLayer = AVCaptureVideoPreviewLayer() // TODO is this a bug? later on we construct it with a session as an object
@@ -39,67 +41,67 @@ class CameraViewController: UIViewController, UINavigationControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        captureImageButton.layer.borderColor = UIColor.black.cgColor
+        // Set up capture image button
+        captureImageButton.layer.borderColor = UIColor.gray.cgColor
         captureImageButton.layer.borderWidth = 2
-
         captureImageButton.layer.cornerRadius = min(captureImageButton.frame.width, captureImageButton.frame.height) / 2
+        
+        // Check for permissions and initialize the ACCaptureSession if we are ok
+        if !UIImagePickerController.isSourceTypeAvailable(.camera){
+           // Prevents crashing in the simulator
+           let alertController = UIAlertController.init(title: nil, message: "Device has no camera.", preferredStyle: .alert)
+
+           let okAction = UIAlertAction.init(title: "Ok 🥺", style: .default, handler: {(alert: UIAlertAction!) in
+           })
+
+           alertController.addAction(okAction)
+           self.present(alertController, animated: true, completion: nil)
+
+           return
+        }
+
+        let authStatus = AVCaptureDevice.authorizationStatus(for: AVMediaType.video)
+        if authStatus == AVAuthorizationStatus.denied {
+           // The system denied access to the camera. Alert the user.
+           let alert = UIAlertController(title: "Unable to access the Camera",
+                                         message: "To turn on camera access, choose Settings > Privacy > Camera and turn on Camera access for this app.",
+                                         preferredStyle: UIAlertController.Style.alert)
+           
+           let okAction = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+           alert.addAction(okAction)
+           
+           let settingsAction = UIAlertAction(title: "Settings", style: .default, handler: { _ in
+               // Take the user to the Settings app to change permissions.
+               guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else { return }
+               if UIApplication.shared.canOpenURL(settingsUrl) {
+                   UIApplication.shared.open(settingsUrl, completionHandler: { (success) in
+                       // The resource finished opening.
+                   })
+               }
+           })
+           alert.addAction(settingsAction)
+           
+           present(alert, animated: true, completion: nil)
+        } else if authStatus == AVAuthorizationStatus.notDetermined {
+           AVCaptureDevice.requestAccess(for: AVMediaType.video, completionHandler: { (granted) in
+               if granted {
+                  // self.sessionQueue.async {
+                    self.showCameraUsingAV()
+                 //  }
+               }
+           })
+        } else {
+           //sessionQueue.async {
+            self.showCameraUsingAV()
+           //}
+        }
+                       
+       let tapToFocusGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapToFocus))
+       self.view.addGestureRecognizer(tapToFocusGestureRecognizer)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        if !UIImagePickerController.isSourceTypeAvailable(.camera){
-            // Prevents crashing in the simulator
-            let alertController = UIAlertController.init(title: nil, message: "Device has no camera.", preferredStyle: .alert)
-
-            let okAction = UIAlertAction.init(title: "Ok 🥺", style: .default, handler: {(alert: UIAlertAction!) in
-            })
-
-            alertController.addAction(okAction)
-            self.present(alertController, animated: true, completion: nil)
-
-            return
-        }
-        
-        let authStatus = AVCaptureDevice.authorizationStatus(for: AVMediaType.video)
-        if authStatus == AVAuthorizationStatus.denied {
-            // The system denied access to the camera. Alert the user.
-            let alert = UIAlertController(title: "Unable to access the Camera",
-                                          message: "To turn on camera access, choose Settings > Privacy > Camera and turn on Camera access for this app.",
-                                          preferredStyle: UIAlertController.Style.alert)
-            
-            let okAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-            alert.addAction(okAction)
-            
-            let settingsAction = UIAlertAction(title: "Settings", style: .default, handler: { _ in
-                // Take the user to the Settings app to change permissions.
-                guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else { return }
-                if UIApplication.shared.canOpenURL(settingsUrl) {
-                    UIApplication.shared.open(settingsUrl, completionHandler: { (success) in
-                        // The resource finished opening.
-                    })
-                }
-            })
-            alert.addAction(settingsAction)
-            
-            present(alert, animated: true, completion: nil)
-        } else if authStatus == AVAuthorizationStatus.notDetermined {
-            AVCaptureDevice.requestAccess(for: AVMediaType.video, completionHandler: { (granted) in
-                if granted {
-                   // self.sessionQueue.async {
-                        self.showCameraUsingAV()
-                  //  }
-                }
-            })
-        } else {
-            //sessionQueue.async {
-                self.showCameraUsingAV()
-            //}
-        }
-                
-        let mytapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(myTapAction))
-        self.view.addGestureRecognizer(mytapGestureRecognizer)
-        
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -109,8 +111,6 @@ class CameraViewController: UIViewController, UINavigationControllerDelegate {
             captureSession.startRunning()
         }
     }
-    
-    
 }
 
 extension CameraViewController {
@@ -124,7 +124,6 @@ extension CameraViewController {
         
         // Set up device
         do {
-        
             let videoDeviceInput = try AVCaptureDeviceInput(device: captureDevice)
         
             // Add input
@@ -134,10 +133,8 @@ extension CameraViewController {
             }
             
             captureSession.addInput(videoDeviceInput)
-            
             captureSession.sessionPreset = AVCaptureSession.Preset.photo
             captureSession.startRunning()
-
            
             // display the incoming camera image
             let previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
@@ -146,19 +143,6 @@ extension CameraViewController {
             previewLayer.connection?.videoOrientation = .portrait
             previewLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
 
-            //        view.layer.insertSublayer(self.previewLayer!, at: 0) ??
-            //        self.previewLayer?.frame = view.frame ??
-
-           // DispatchQueue.main.async {
-//           var initialVideoOrientation: AVCaptureVideoOrientation = .portrait
-//           if self.windowOrientation != .unknown {
-//            if let videoOrientation = AVCaptureVideoOrientation(rawValue: self.windowOrientation.rawValue) {
-//                   initialVideoOrientation = videoOrientation
-//               }
-//           }
-//
-           // previewLayer.connection?.videoOrientation = initialVideoOrientation
-            
             // display the last dog image
             let previousDogImage = UIImage(named: "test.png")?.cgImage
             let overlayLayer = CALayer()
@@ -191,16 +175,7 @@ extension CameraViewController {
 }
 
 extension CameraViewController: AVCapturePhotoCaptureDelegate {
-//    func photoOutput(_ captureOutput: AVCapturePhotoOutput,
-//                     didFinishProcessingPhoto photoSampleBuffer: CMSampleBuffer?,
-//                     previewPhoto previewPhotoSampleBuffer: CMSampleBuffer?,
-//                    resolvedSettings: AVCaptureResolvedPhotoSettings,
-//                    bracketSettings: AVCaptureBracketedStillImageSettings?,
-//                    error: Error?)
-//    {
-//
-//    }
-    
+
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
 
         // Check if there is any error in capturing
@@ -242,16 +217,12 @@ extension CameraViewController: AVCapturePhotoCaptureDelegate {
         // Show thumbnail
         self.currentImage = imageToSave
         self.showImage()
-
-        // Stop video capturing session (Freeze preview)
-        //captureSession.stopRunning()
     }
     
     func showImage() {
         let imageReviewViewController = self.storyboard?.instantiateViewController(withIdentifier: "ImageReviewViewController") as! ImageReviewViewController
         
         imageReviewViewController.image = self.currentImage
-        
         imageReviewViewController.hidesBottomBarWhenPushed = true
 
         present(imageReviewViewController, animated: true, completion: nil)
@@ -259,7 +230,7 @@ extension CameraViewController: AVCapturePhotoCaptureDelegate {
 }
 
 extension CameraViewController {
-    @objc func myTapAction(recognizer: UITapGestureRecognizer) {
+    @objc func tapToFocus(recognizer: UITapGestureRecognizer) {
         let location = recognizer.location(in: recognizer.view)
         let captureDeviceLocation = previewLayer.captureDevicePointConverted(fromLayerPoint: location)
         focus(at: captureDeviceLocation)
@@ -307,17 +278,6 @@ extension CameraViewController {
         if !captureSession.isRunning {
             print("Error - Capture session is not running so can't capture image")
         }
-               
-       //        // Set orientation
-       //        let videoPreviewLayerOrientation = previewLayer.connection?.videoOrientation
-       //        if let photoOutputConnection = self.photoOutput?.connection(with: .video) {
-       //            photoOutputConnection.videoOrientation = videoPreviewLayerOrientation!
-       //        }
-       //
-       //
-       //
-       //
-                   
            // Set capture settings
            let photoSettings = AVCapturePhotoSettings(format: [AVVideoCodecKey: AVVideoCodecType.jpeg])
    //        if  self.photoOutput?.availablePhotoCodecTypes.contains(.hevc) ?? false {
@@ -333,8 +293,8 @@ extension CameraViewController {
     }
 }
 
-extension CameraViewController {
-    enum CameraViewControllerError: Swift.Error {
-        case captureSessionIsMissing
-    }
-}
+
+
+
+// Stop video capturing session (Freeze preview)
+//captureSession.stopRunning()
