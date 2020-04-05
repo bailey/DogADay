@@ -46,6 +46,9 @@ class CameraViewController: UIViewController, UINavigationControllerDelegate {
         captureImageButton.layer.borderWidth = 2
         captureImageButton.layer.cornerRadius = min(captureImageButton.frame.width, captureImageButton.frame.height) / 2
         
+        // Check if we have already take a photo today
+        
+        
         // Check for permissions and initialize the ACCaptureSession if we are ok
         if !UIImagePickerController.isSourceTypeAvailable(.camera){
            // Prevents crashing in the simulator

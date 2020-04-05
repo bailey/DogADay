@@ -125,10 +125,14 @@ public class SDPhotosHelper: NSObject {
         let optionsOrderImage  = PHFetchOptions()
         optionsOrderImage.sortDescriptors = [ NSSortDescriptor(key: "creationDate", ascending: false) ]
         
+        // Bailey TODO - get creation date from here
         let photos = PHAsset.fetchAssets(in: album, options: optionsOrderImage)
         var images : [UIImage] = []
         
         photos.enumerateObjects(_:) { (asset, count, stop) in
+            // BAILEY - will want to also get the date back
+            // Will want to make a new class probably that contains the UIImage and the creation date (and other things?)
+            // Then change UIImage to that class everywhere
             let image = SDPhotosHelper.getImageFromAsset(asset)
             images.append(image)
         }

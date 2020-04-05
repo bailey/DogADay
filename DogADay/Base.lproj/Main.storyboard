@@ -1,48 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Home-->
-        <scene sceneID="hNz-n2-bh7">
-            <objects>
-                <viewController id="9pv-A4-QxB" customClass="HomeViewController" customModule="DogADay" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="tsR-hK-woN">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="First View" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="KQZ-1w-vlD">
-                                <rect key="frame" x="131.5" y="426.5" width="151" height="43"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="36"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loaded by FirstViewController" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A5M-7J-77L">
-                                <rect key="frame" x="110" y="477.5" width="194.5" height="17"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <constraints>
-                            <constraint firstAttribute="centerX" secondItem="KQZ-1w-vlD" secondAttribute="centerX" id="6BV-lF-sBN"/>
-                            <constraint firstItem="A5M-7J-77L" firstAttribute="top" secondItem="KQZ-1w-vlD" secondAttribute="bottom" constant="8" symbolic="YES" id="cfb-er-3JN"/>
-                            <constraint firstItem="A5M-7J-77L" firstAttribute="centerX" secondItem="KQZ-1w-vlD" secondAttribute="centerX" id="e1l-AV-tCB"/>
-                            <constraint firstAttribute="centerY" secondItem="KQZ-1w-vlD" secondAttribute="centerY" id="exm-UA-ej4"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="PQr-Ze-W5v"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="Home" image="home" id="acW-dT-cKf"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="809" y="-701"/>
-        </scene>
         <!--Camera-->
         <scene sceneID="wg7-f3-ORb">
             <objects>
@@ -51,6 +16,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dx9-tP-vHV" userLabel="Come Back Later View">
+                                <rect key="frame" x="0.0" y="44" width="414" height="769"/>
+                                <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ROg-ju-qrR" userLabel="Capture Preview View">
                                 <rect key="frame" x="0.0" y="44" width="414" height="769"/>
                                 <color key="backgroundColor" systemColor="opaqueSeparatorColor" red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -80,13 +49,17 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="Dx9-tP-vHV" firstAttribute="leading" secondItem="O1u-W8-tvY" secondAttribute="leading" id="8u0-6m-KIm"/>
                             <constraint firstItem="ROg-ju-qrR" firstAttribute="leading" secondItem="O1u-W8-tvY" secondAttribute="leading" id="9ay-0a-kFy"/>
                             <constraint firstItem="ROg-ju-qrR" firstAttribute="top" secondItem="O1u-W8-tvY" secondAttribute="top" id="Kye-5n-ZlT"/>
                             <constraint firstItem="ROg-ju-qrR" firstAttribute="bottom" secondItem="O1u-W8-tvY" secondAttribute="bottom" id="SWo-qR-z4d"/>
                             <constraint firstItem="O1u-W8-tvY" firstAttribute="trailing" secondItem="ROg-ju-qrR" secondAttribute="trailing" id="VLb-Ac-08a"/>
+                            <constraint firstItem="Dx9-tP-vHV" firstAttribute="bottom" secondItem="O1u-W8-tvY" secondAttribute="bottom" id="Wkv-LH-Zxm"/>
                             <constraint firstItem="8eB-to-pLD" firstAttribute="top" secondItem="O1u-W8-tvY" secondAttribute="top" constant="16" id="Y4L-Iw-gv6"/>
                             <constraint firstItem="O1u-W8-tvY" firstAttribute="trailing" secondItem="8eB-to-pLD" secondAttribute="trailing" constant="16" id="a8B-Wu-WQa"/>
                             <constraint firstItem="7Zr-Ri-VqL" firstAttribute="centerX" secondItem="QS5-Rx-YEW" secondAttribute="centerX" id="bUo-m3-CeV"/>
+                            <constraint firstItem="Dx9-tP-vHV" firstAttribute="trailing" secondItem="O1u-W8-tvY" secondAttribute="trailing" id="gUm-N8-eDG"/>
+                            <constraint firstItem="Dx9-tP-vHV" firstAttribute="top" secondItem="O1u-W8-tvY" secondAttribute="top" id="tSS-rt-1iB"/>
                             <constraint firstItem="O1u-W8-tvY" firstAttribute="bottom" secondItem="7Zr-Ri-VqL" secondAttribute="bottom" constant="16" id="ynx-hc-jX3"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="O1u-W8-tvY"/>
@@ -95,6 +68,7 @@
                     <connections>
                         <outlet property="captureImageButton" destination="7Zr-Ri-VqL" id="Pif-Sb-rBd"/>
                         <outlet property="capturePreviewView" destination="ROg-ju-qrR" id="xns-JK-JnS"/>
+                        <outlet property="comeBackLaterView" destination="Dx9-tP-vHV" id="6HU-GR-HcP"/>
                         <outlet property="toggleFlashButton" destination="8eB-to-pLD" id="WoW-qE-KXH"/>
                         <segue destination="fu9-7A-BlH" kind="presentation" id="vjX-cl-rcM"/>
                     </connections>
@@ -244,7 +218,6 @@
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                     </tabBar>
                     <connections>
-                        <segue destination="9pv-A4-QxB" kind="relationship" relationship="viewControllers" id="u7Y-xg-7CH"/>
                         <segue destination="8rJ-Kc-sve" kind="relationship" relationship="viewControllers" id="lzU-1b-eKA"/>
                         <segue destination="Qxk-rz-jJi" kind="relationship" relationship="viewControllers" id="Tm7-8a-epL"/>
                     </connections>
@@ -255,9 +228,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="arrow.up.right.video.fill" catalog="system" width="128" height="82"/>
-        <image name="camera.fill" catalog="system" width="128" height="96"/>
+        <image name="arrow.up.right.video.fill" catalog="system" width="64" height="40"/>
+        <image name="camera.fill" catalog="system" width="64" height="48"/>
         <image name="flash_off" width="24" height="24"/>
-        <image name="home" width="29" height="29"/>
     </resources>
 </document>

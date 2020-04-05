@@ -31,17 +31,30 @@ class PhotosViewController : UIViewController
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        SDPhotosHelper.getImages(fromAlbum: Constants.albumName, onSuccess: {(images) in
-            print("Got images")
-            print(images)
-            print(images.count)
-            self.images = images
-            self.collectionView.reloadData()
-           }) { (error) in
-               if let error = error {
-                   print("Error in creating album : \(error.localizedDescription)")
-               }
-           }}
+        
+        ImagesHelper.getImages(true, onSuccess: {(images) in
+         print("Got images")
+         print(images)
+         print(images.count)
+         self.images = images
+         self.collectionView.reloadData()
+        }) { (error) in
+            if let error = error {
+                print("Error in creating album : \(error.localizedDescription)")
+            }
+        }}
+        
+//        SDPhotosHelper.getImages(fromAlbum: Constants.albumName, onSuccess: {(images) in
+//            print("Got images")
+//            print(images)
+//            print(images.count)
+//            self.images = images
+//            self.collectionView.reloadData()
+//           }) { (error) in
+//               if let error = error {
+//                   print("Error in creating album : \(error.localizedDescription)")
+//               }
+//           }}
     
     
     override func viewDidLayoutSubviews() {
