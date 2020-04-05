@@ -16,6 +16,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5N4-Sb-Cax" userLabel="Loading View">
+                                <rect key="frame" x="87" y="384" width="240" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dx9-tP-vHV" userLabel="Come Back Later View">
                                 <rect key="frame" x="0.0" y="44" width="414" height="769"/>
                                 <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -69,6 +74,7 @@
                         <outlet property="captureImageButton" destination="7Zr-Ri-VqL" id="Pif-Sb-rBd"/>
                         <outlet property="capturePreviewView" destination="ROg-ju-qrR" id="xns-JK-JnS"/>
                         <outlet property="comeBackLaterView" destination="Dx9-tP-vHV" id="6HU-GR-HcP"/>
+                        <outlet property="loadingView" destination="5N4-Sb-Cax" id="ala-iN-ys4"/>
                         <outlet property="toggleFlashButton" destination="8eB-to-pLD" id="WoW-qE-KXH"/>
                         <segue destination="fu9-7A-BlH" kind="presentation" id="vjX-cl-rcM"/>
                     </connections>

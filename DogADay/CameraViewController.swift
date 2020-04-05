@@ -11,7 +11,8 @@ import AVFoundation
 import MobileCoreServices
 
 class CameraViewController: UIViewController, UINavigationControllerDelegate {
-
+    @IBOutlet weak var loadingView: UIView!
+    
     @IBOutlet weak var toggleFlashButton: UIButton!
     @IBOutlet weak var captureImageButton: UIButton!
     @IBOutlet weak var capturePreviewView: UIView!
@@ -118,11 +119,21 @@ class CameraViewController: UIViewController, UINavigationControllerDelegate {
        self.view.addGestureRecognizer(tapToFocusGestureRecognizer)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        captureSession.startRunning()
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
+        loadingView.isHidden = true // TODO - test whether this is actually useful
     }
     
     override func viewDidDisappear(_ animated: Bool) {
+        loadingView.isHidden = false
+
         if captureSession.isRunning {
             captureSession.stopRunning()
         } else {
