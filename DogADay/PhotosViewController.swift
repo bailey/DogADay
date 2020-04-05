@@ -18,14 +18,32 @@ class ImageCell: UICollectionViewCell {
 class PhotosViewController : UIViewController
 {
     private let reuseIdentifier = "ImageCell"
-
+    private var images: [UIImage] = []
     private let itemsPerRow: CGFloat = 3
     private let sectionInsets = UIEdgeInsets(top: 50.0,
        left: 10.0,
        bottom: 10.0,
        right: 10.0)
         
+    
+    
     @IBOutlet weak var collectionView: UICollectionView!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        SDPhotosHelper.getImages(fromAlbum: Constants.albumName, onSuccess: {(images) in
+            print("Got images")
+            print(images)
+            print(images.count)
+            self.images = images
+            self.collectionView.reloadData()
+           }) { (error) in
+               if let error = error {
+                   print("Error in creating album : \(error.localizedDescription)")
+               }
+           }}
+    
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
 
@@ -35,8 +53,7 @@ class PhotosViewController : UIViewController
         
         // Save to album
         //SDPhotosHelper.createAlbum(withTitle: <#T##String#>, onResult: <#T##(Bool, Error?) -> Void#>)
-        
-       
+    
         
         // Save to album
 //        SDPhotosHelper.addNewImage(imageToSave, toAlbum: Constants.albumName, onSuccess: { ( identifier) in
@@ -52,7 +69,8 @@ class PhotosViewController : UIViewController
 //                   print("Error in creating album : \(error.localizedDescription)")
 //               }
            }
-    }
+}
+
 
 
 // MARK: - UICollectionViewDataSource
@@ -63,13 +81,16 @@ extension PhotosViewController: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 20
+        print("bailey test \(images.count)")
+        return images.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! ImageCell
         cell.backgroundColor = .blue
        // cell.textLabel.text = String(indexPath.row + 1)
+        cell.newImageView.image = images[indexPath.item]
+        print(images[indexPath.item])
         return cell
     }
 }
