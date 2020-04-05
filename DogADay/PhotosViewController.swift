@@ -25,37 +25,20 @@ class PhotosViewController : UIViewController
        bottom: 10.0,
        right: 10.0)
         
-    
-    
     @IBOutlet weak var collectionView: UICollectionView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         ImagesHelper.getImages(true, onSuccess: {(images) in
-         print("Got images")
-         print(images)
-         print(images.count)
-         self.images = images
-         self.collectionView.reloadData()
+            print("Got \(images.count) images")
+            self.images = images
+            self.collectionView.reloadData()
         }) { (error) in
             if let error = error {
                 print("Error in creating album : \(error.localizedDescription)")
             }
         }}
-        
-//        SDPhotosHelper.getImages(fromAlbum: Constants.albumName, onSuccess: {(images) in
-//            print("Got images")
-//            print(images)
-//            print(images.count)
-//            self.images = images
-//            self.collectionView.reloadData()
-//           }) { (error) in
-//               if let error = error {
-//                   print("Error in creating album : \(error.localizedDescription)")
-//               }
-//           }}
-    
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()

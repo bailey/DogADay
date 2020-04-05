@@ -12,10 +12,18 @@ import UIKit
 class ImagesHelper {
     static var images : [UIImage]?
         
+    public static func haveTakenPhotoToday(onSuccess success:@escaping(Bool)->Void,
+                                           onFailure failure:@escaping(Error?)->Void)  {
+        ImagesHelper.getImages(true, onSuccess: {(images) in
+            success(false)
+        }) { (error) in
+           failure(error)
+        }
+    }
+    
     public static func getImages(_ shouldRefresh: Bool,
-        onSuccess success:@escaping([UIImage])->Void,
-        onFailure failure:@escaping(Error?)->Void)  {
-        
+                                 onSuccess success:@escaping([UIImage])->Void,
+                                 onFailure failure:@escaping(Error?)->Void)  {
         // Just return the images if we have them already
         if let images = self.images {
             if !shouldRefresh {
@@ -32,5 +40,4 @@ class ImagesHelper {
         }) { (error) in
             failure(error)
         }}
-        
     }

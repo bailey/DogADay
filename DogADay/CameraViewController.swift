@@ -41,13 +41,28 @@ class CameraViewController: UIViewController, UINavigationControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        comeBackLaterView.isHidden = true
+        
         // Set up capture image button
         captureImageButton.layer.borderColor = UIColor.gray.cgColor
         captureImageButton.layer.borderWidth = 2
         captureImageButton.layer.cornerRadius = min(captureImageButton.frame.width, captureImageButton.frame.height) / 2
-        
-        // Check if we have already take a photo today
-        
+
+        ImagesHelper.haveTakenPhotoToday(onSuccess: {(haveTakenPhotoToday) in
+            print("haveTakenPhotoToday: \(haveTakenPhotoToday)")
+            if haveTakenPhotoToday {
+                self.showComeBackLaterView()
+            }
+            else {
+                print("Haven't taken a photo today, let's take a photo")
+                // PARIS DEBUG TODO - Should we call all the rest of the code only after we get back from this?
+                // Would make it cleaner probably
+            }
+            }) { (error) in
+              if let error = error {
+                  print("Error in checking if have taken photo today: \(error.localizedDescription)")
+              }
+        }
         
         // Check for permissions and initialize the ACCaptureSession if we are ok
         if !UIImagePickerController.isSourceTypeAvailable(.camera){
@@ -117,6 +132,15 @@ class CameraViewController: UIViewController, UINavigationControllerDelegate {
 }
 
 extension CameraViewController {
+    func showComeBackLaterView() {
+        // Clean up camera
+        
+        // Show come back later view
+        comeBackLaterView.isHidden = false
+    }
+}
+
+extension CameraViewController {
     
     func showCameraUsingAV() {
         self.captureDevice = AVCaptureDevice.default(for: .video)
@@ -179,6 +203,18 @@ extension CameraViewController {
 
 extension CameraViewController: AVCapturePhotoCaptureDelegate {
 
+//    // https://developer.apple.com/documentation/avfoundation/cameras_and_media_capture/avcam_building_a_camera_app
+//    // Flash a white screen
+//    func photoOutput(_ output: AVCapturePhotoOutput, willCapturePhotoFor resolvedSettings: AVCaptureResolvedPhotoSettings) {
+//       DispatchQueue.main.async {
+//        self.previewLayer.backgroundColor = UIColor.red.cgColor
+//           self.previewLayer.opacity = 0
+//           UIView.animate(withDuration: 2) {
+//               self.previewLayer.opacity = 1
+//           }
+//       }
+//    }
+//
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
 
         // Check if there is any error in capturing
@@ -199,26 +235,26 @@ extension CameraViewController: AVCapturePhotoCaptureDelegate {
             return
         }
 
-        // Get original image width/height
-        let imgWidth = capturedImage.size.width
-        let imgHeight = capturedImage.size.height
-        // Get origin of cropped image
-        let imgOrigin = CGPoint(x: (imgWidth - imgHeight)/2, y: (imgHeight - imgHeight)/2)
-        // Get size of cropped iamge
-        let imgSize = CGSize(width: imgHeight, height: imgHeight)
+//        // Get original image width/height
+//        let imgWidth = capturedImage.size.width
+//        let imgHeight = capturedImage.size.height
+//        // Get origin of cropped image
+//        let imgOrigin = CGPoint(x: (imgWidth - imgHeight)/2, y: (imgHeight - imgHeight)/2)
+//        // Get size of cropped iamge
+//        let imgSize = CGSize(width: imgHeight, height: imgHeight)
+//
+//        // Check if image could be cropped successfully
+//        guard let imageRef = capturedImage.cgImage?.cropping(to: CGRect(origin: imgOrigin, size: imgSize)) else {
+//            print("Fail to crop image")
+//            return
+//        }
+//
+//        // Convert cropped image ref to UIImage
+//        let imageToSave = UIImage(cgImage: imageRef, scale: 1.0, orientation: .right)
 
-        // Check if image could be cropped successfully
-        guard let imageRef = capturedImage.cgImage?.cropping(to: CGRect(origin: imgOrigin, size: imgSize)) else {
-            print("Fail to crop image")
-            return
-        }
-
-        // Convert cropped image ref to UIImage
-        let imageToSave = UIImage(cgImage: imageRef, scale: 1.0, orientation: .down)
-        
         
         // Show thumbnail
-        self.currentImage = imageToSave
+        self.currentImage = capturedImage
         self.showImage()
     }
     

@@ -28,6 +28,8 @@ class ImageReviewViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
+        
+        imageView.contentMode = .scaleAspectFill
 //        https://stackoverflow.com/questions/28760541/programmatically-go-back-to-previous-viewcontroller-in-swift
         
         if let image = image {
