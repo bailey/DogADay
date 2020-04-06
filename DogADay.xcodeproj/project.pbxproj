@@ -19,6 +19,7 @@
 		D4290CFE2435756F00FB5AAA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D4290CFC2435756F00FB5AAA /* Main.storyboard */; };
 		D4290D002435757200FB5AAA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D4290CFF2435757200FB5AAA /* Assets.xcassets */; };
 		D4290D032435757200FB5AAA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D4290D012435757200FB5AAA /* LaunchScreen.storyboard */; };
+		D45D3D8B243B062200032E0D /* Bebas-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = D45D3D8A243B062100032E0D /* Bebas-Regular.otf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		D4290CFF2435757200FB5AAA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D4290D022435757200FB5AAA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D4290D042435757200FB5AAA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D45D3D8A243B062100032E0D /* Bebas-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Bebas-Regular.otf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,10 +97,19 @@
 				4F8E4325243833D900D67965 /* MainViewController.swift */,
 				D4290CF62435756F00FB5AAA /* SceneDelegate.swift */,
 				D4290CFF2435757200FB5AAA /* Assets.xcassets */,
+				D452A7CB243B00130094CC44 /* fonts */,
 				D4290D012435757200FB5AAA /* LaunchScreen.storyboard */,
 				D4290D042435757200FB5AAA /* Info.plist */,
 			);
 			path = DogADay;
+			sourceTree = "<group>";
+		};
+		D452A7CB243B00130094CC44 /* fonts */ = {
+			isa = PBXGroup;
+			children = (
+				D45D3D8A243B062100032E0D /* Bebas-Regular.otf */,
+			);
+			path = fonts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -161,6 +172,7 @@
 			files = (
 				4F866013243984DC00AF90DB /* LICENSE.txt in Resources */,
 				D4290D032435757200FB5AAA /* LaunchScreen.storyboard in Resources */,
+				D45D3D8B243B062200032E0D /* Bebas-Regular.otf in Resources */,
 				D4290D002435757200FB5AAA /* Assets.xcassets in Resources */,
 				D4290CFE2435756F00FB5AAA /* Main.storyboard in Resources */,
 			);
@@ -326,7 +338,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 76B6K77MKS;
+				DEVELOPMENT_TEAM = 3C3A3A8466;
 				INFOPLIST_FILE = DogADay/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -345,7 +357,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 76B6K77MKS;
+				DEVELOPMENT_TEAM = 3C3A3A8466;
 				INFOPLIST_FILE = DogADay/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

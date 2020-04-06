@@ -11,10 +11,11 @@ import UIKit
 
 class ImagesHelper {
     static var images : [UIImage]?
+    static var datesCreated : [Date?]?
         
     public static func haveTakenPhotoToday(onSuccess success:@escaping(Bool)->Void,
                                            onFailure failure:@escaping(Error?)->Void)  {
-        ImagesHelper.getImages(true, onSuccess: {(images) in
+        ImagesHelper.getImages(true, onSuccess: {(images, datesCreated) in
             success(false)
         }) { (error) in
            failure(error)
@@ -22,20 +23,21 @@ class ImagesHelper {
     }
     
     public static func getImages(_ shouldRefresh: Bool,
-                                 onSuccess success:@escaping([UIImage])->Void,
+                                 onSuccess success:@escaping([UIImage], [Date?])->Void,
                                  onFailure failure:@escaping(Error?)->Void)  {
         // Just return the images if we have them already
-        if let images = self.images {
+        if let images = self.images, let datesCreated = self.datesCreated {
             if !shouldRefresh {
-                success(images)
+                success(images, datesCreated)
                 return
             }
         }
         
         // Refresh the images
-        SDPhotosHelper.getImages(fromAlbum: Constants.albumName, onSuccess: {(images) in
+        SDPhotosHelper.getImages(fromAlbum: Constants.albumName, onSuccess: {(images, datesCreated) in
             self.images = images
-            success(images)
+            self.datesCreated = datesCreated
+            success(images, datesCreated)
          ImagesHelper.images = images
         }) { (error) in
             failure(error)

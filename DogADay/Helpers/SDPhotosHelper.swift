@@ -115,7 +115,7 @@ public class SDPhotosHelper: NSObject {
     }
     
     public static func getImages(fromAlbum album:String,
-                                 onSuccess success:@escaping([UIImage])->Void,
+                                 onSuccess success:@escaping([UIImage], [Date?])->Void,
                                  onFailure failure:@escaping(Error?)->Void)  {
         
         guard let album = self.getAlbum(withName: album) else {
@@ -128,16 +128,20 @@ public class SDPhotosHelper: NSObject {
         // Bailey TODO - get creation date from here
         let photos = PHAsset.fetchAssets(in: album, options: optionsOrderImage)
         var images : [UIImage] = []
+        var datesCreated : [Date?] = []
         
         photos.enumerateObjects(_:) { (asset, count, stop) in
             // BAILEY - will want to also get the date back
             // Will want to make a new class probably that contains the UIImage and the creation date (and other things?)
             // Then change UIImage to that class everywhere
             let image = SDPhotosHelper.getImageFromAsset(asset)
+            let date = asset.creationDate
             images.append(image)
+            datesCreated.append(date)
+            print(date ?? 0)
         }
         OperationQueue.main.addOperation({
-            success(images)
+            success(images, datesCreated)
         })
     }
         
