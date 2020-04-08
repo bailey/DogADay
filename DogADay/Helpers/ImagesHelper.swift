@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 class ImagesHelper {
-    private static let alwaysReturnNoPhotoToday = true // DEBUG
+    private static let alwaysReturnNoPhotoToday = false // DEBUG
     
     static var images : [UIImage]?
     static var datesCreated : [Date?]?
