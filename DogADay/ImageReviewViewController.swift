@@ -15,59 +15,46 @@ class ImageReviewViewController: UIViewController {
 
     @IBOutlet weak var imageView: UIImageView!
     var image : UIImage?
+    var onDoneBlock : ((Bool) -> Void)?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-//        captureImageButton.layer.borderColor = UIColor.black.cgColor
-//        captureImageButton.layer.borderWidth = 2
-//
-//        captureImageButton.layer.cornerRadius = min(captureImageButton.frame.width, captureImageButton.frame.height) / 2
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        
         imageView.contentMode = .scaleAspectFill
-//        https://stackoverflow.com/questions/28760541/programmatically-go-back-to-previous-viewcontroller-in-swift
-        
         if let image = image {
             imageView.image = image
         }
         else {
             print("Error - We didn't get an image to present")
-            //retakeButtonTapped(nil)
+            onDoneBlock?(false)
+            navigationController?.popViewController(animated: true)
+            dismiss(animated: true, completion: nil)
         }
     }
     
     @IBAction func finishButtonTapped(_ sender: Any) {
-        print("Finish!")
-        
         // Save to album
-        
         if let image = image {
             SDPhotosHelper.addNewImage(image, toAlbum: Constants.albumName, onSuccess: { ( identifier) in
-                   print("Saved image successfully, identifier is \(identifier)")
-    //               let alert = UIAlertController.init(title: "Success", message: "Image added, id : \(identifier)", preferredStyle: .alert)
-    //               let actionOk = UIAlertAction.init(title: "OK", style: .cancel, handler: nil)
-    //               alert.addAction(actionOk)
-    //               OperationQueue.main.addOperation({
-    //                   self.present(alert, animated: true, completion: nil)
-    //               })
-               }) { (error) in
+                print("Saved image successfully, identifier is \(identifier)")
+                ImagesHelper.shouldReload = true
+                DispatchQueue.global(qos: .background).async {
+                    ImagesHelper.reloadImages()
+                }
+                }) { (error) in
                    if let error = error {
                        print("Error in creating album : \(error.localizedDescription)")
                    }
-               }
+                }
         }
+        
+        // Dismiss
+        onDoneBlock?(true)
         navigationController?.popViewController(animated: true)
-
         dismiss(animated: true, completion: nil)
     }
-    
-//    @IBAction func retakeButtonTapped(_ sender: Any) {
-//       print("Retake!")
-//        _ = navigationController?.popViewController(animated: true)
-//    }
 }
