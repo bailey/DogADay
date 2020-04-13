@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -16,15 +16,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5N4-Sb-Cax" userLabel="Loading View">
-                                <rect key="frame" x="87" y="384" width="240" height="128"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dx9-tP-vHV" userLabel="Come Back Later View">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="loadscreen" translatesAutoresizingMaskIntoConstraints="NO" id="HSQ-cQ-bZv" userLabel="Come Back Later View">
                                 <rect key="frame" x="0.0" y="44" width="414" height="769"/>
-                                <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </view>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ROg-ju-qrR" userLabel="Capture Preview View">
                                 <rect key="frame" x="0.0" y="44" width="414" height="769"/>
                                 <color key="backgroundColor" systemColor="opaqueSeparatorColor" red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -54,17 +49,17 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="Dx9-tP-vHV" firstAttribute="leading" secondItem="O1u-W8-tvY" secondAttribute="leading" id="8u0-6m-KIm"/>
+                            <constraint firstItem="HSQ-cQ-bZv" firstAttribute="top" secondItem="O1u-W8-tvY" secondAttribute="top" id="0m7-uh-Sgf"/>
                             <constraint firstItem="ROg-ju-qrR" firstAttribute="leading" secondItem="O1u-W8-tvY" secondAttribute="leading" id="9ay-0a-kFy"/>
+                            <constraint firstItem="HSQ-cQ-bZv" firstAttribute="trailing" secondItem="O1u-W8-tvY" secondAttribute="trailing" id="BKs-fP-C10"/>
                             <constraint firstItem="ROg-ju-qrR" firstAttribute="top" secondItem="O1u-W8-tvY" secondAttribute="top" id="Kye-5n-ZlT"/>
                             <constraint firstItem="ROg-ju-qrR" firstAttribute="bottom" secondItem="O1u-W8-tvY" secondAttribute="bottom" id="SWo-qR-z4d"/>
                             <constraint firstItem="O1u-W8-tvY" firstAttribute="trailing" secondItem="ROg-ju-qrR" secondAttribute="trailing" id="VLb-Ac-08a"/>
-                            <constraint firstItem="Dx9-tP-vHV" firstAttribute="bottom" secondItem="O1u-W8-tvY" secondAttribute="bottom" id="Wkv-LH-Zxm"/>
                             <constraint firstItem="8eB-to-pLD" firstAttribute="top" secondItem="O1u-W8-tvY" secondAttribute="top" constant="16" id="Y4L-Iw-gv6"/>
                             <constraint firstItem="O1u-W8-tvY" firstAttribute="trailing" secondItem="8eB-to-pLD" secondAttribute="trailing" constant="16" id="a8B-Wu-WQa"/>
                             <constraint firstItem="7Zr-Ri-VqL" firstAttribute="centerX" secondItem="QS5-Rx-YEW" secondAttribute="centerX" id="bUo-m3-CeV"/>
-                            <constraint firstItem="Dx9-tP-vHV" firstAttribute="trailing" secondItem="O1u-W8-tvY" secondAttribute="trailing" id="gUm-N8-eDG"/>
-                            <constraint firstItem="Dx9-tP-vHV" firstAttribute="top" secondItem="O1u-W8-tvY" secondAttribute="top" id="tSS-rt-1iB"/>
+                            <constraint firstItem="HSQ-cQ-bZv" firstAttribute="bottom" secondItem="O1u-W8-tvY" secondAttribute="bottom" id="pkm-DG-WVB"/>
+                            <constraint firstItem="HSQ-cQ-bZv" firstAttribute="leading" secondItem="O1u-W8-tvY" secondAttribute="leading" id="rif-t9-DbV"/>
                             <constraint firstItem="O1u-W8-tvY" firstAttribute="bottom" secondItem="7Zr-Ri-VqL" secondAttribute="bottom" constant="16" id="ynx-hc-jX3"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="O1u-W8-tvY"/>
@@ -73,10 +68,9 @@
                     <connections>
                         <outlet property="captureImageButton" destination="7Zr-Ri-VqL" id="Pif-Sb-rBd"/>
                         <outlet property="capturePreviewView" destination="ROg-ju-qrR" id="xns-JK-JnS"/>
-                        <outlet property="comeBackLaterView" destination="Dx9-tP-vHV" id="6HU-GR-HcP"/>
-                        <outlet property="loadingView" destination="5N4-Sb-Cax" id="ala-iN-ys4"/>
+                        <outlet property="comeBackLaterView" destination="HSQ-cQ-bZv" id="hnT-2R-NS5"/>
                         <outlet property="toggleFlashButton" destination="8eB-to-pLD" id="WoW-qE-KXH"/>
-                        <segue destination="fu9-7A-BlH" kind="presentation" id="vjX-cl-rcM"/>
+                        <segue destination="fu9-7A-BlH" kind="presentation" identifier="cameraSequeId" id="vjX-cl-rcM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
@@ -138,22 +132,22 @@
                                 <rect key="frame" x="0.0" y="44" width="414" height="769"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="yOA-Mg-aIQ">
-                                    <size key="itemSize" width="100" height="100"/>
-                                    <size key="estimatedItemSize" width="100" height="100"/>
+                                    <size key="itemSize" width="200" height="200"/>
+                                    <size key="estimatedItemSize" width="200" height="200"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" reuseIdentifier="ImageCell" id="and-EU-5vh" userLabel="Image Cell" customClass="ImageCell" customModule="DogADay" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="HKJ-fk-6II">
-                                            <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TA1-gy-4tm">
-                                                    <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="249" verticalHuggingPriority="249" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TA1-gy-4tm">
+                                                    <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
                                                 <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="right" contentVerticalAlignment="center" usesAttributedText="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="M6K-5d-iXj">
@@ -163,7 +157,7 @@
                                                         <fragment content="test">
                                                             <attributes>
                                                                 <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                <font key="NSFont" size="14" name="Bebas-Regular"/>
+                                                                <font key="NSFont" metaFont="menu" size="14"/>
                                                                 <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                             </attributes>
                                                         </fragment>
@@ -242,8 +236,9 @@
         </scene>
     </scenes>
     <resources>
-        <image name="arrow.up.right.video.fill" catalog="system" width="128" height="82"/>
-        <image name="camera.fill" catalog="system" width="128" height="96"/>
+        <image name="arrow.up.right.video.fill" catalog="system" width="64" height="40"/>
+        <image name="camera.fill" catalog="system" width="64" height="48"/>
         <image name="flash_off" width="24" height="24"/>
+        <image name="loadscreen" width="1498" height="1498"/>
     </resources>
 </document>

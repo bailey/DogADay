@@ -22,56 +22,33 @@ class PhotosViewController : UIViewController
     private var datesCreated: [Date?] = []
     private let itemsPerRow: CGFloat = 2
     private let sectionInsets = UIEdgeInsets(top: 20.0,
-       left: 2.0,
+       left: 10.0,
        bottom: 20.0,
-       right: 2.0)
+       right: 10.0)
         
     @IBOutlet weak var collectionView: UICollectionView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        ImagesHelper.getImages(true, onSuccess: {(images, datesCreated) in
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        // Don't need to refresh images because
+        // 1) MainViewController will do it after checking that the album is created
+        // 2) When we take a new image, we will load images immediately after
+        ImagesHelper.getImages(onSuccess: {(images, datesCreated) in
             print("Got \(images.count) images")
             self.images = images
-            // need to get the datesCreated from SDPhotosHelper passed in alongside the images array vvv
             self.datesCreated = datesCreated
-            print("hi \(datesCreated.count)")
             self.collectionView.reloadData()
         }) { (error) in
             if let error = error {
-                print("Error in creating album : \(error.localizedDescription)")
+               print("Error in creating album : \(error.localizedDescription)")
             }
-        }}
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-
-        if let flowLayout = self.collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-            flowLayout.itemSize = CGSize(width: self.collectionView.bounds.width, height: 120)
         }
-        
-        // Save to album
-        //SDPhotosHelper.createAlbum(withTitle: <#T##String#>, onResult: <#T##(Bool, Error?) -> Void#>)
-    
-        
-        // Save to album
-//        SDPhotosHelper.addNewImage(imageToSave, toAlbum: Constants.albumName, onSuccess: { ( identifier) in
-//               print("Saved image successfully, identifier is \(identifier)")
-//               let alert = UIAlertController.init(title: "Success", message: "Image added, id : \(identifier)", preferredStyle: .alert)
-//               let actionOk = UIAlertAction.init(title: "OK", style: .cancel, handler: nil)
-//               alert.addAction(actionOk)
-//               OperationQueue.main.addOperation({
-//                   self.present(alert, animated: true, completion: nil)
-//               })
-//           }) { (error) in
-//               if let error = error {
-//                   print("Error in creating album : \(error.localizedDescription)")
-//               }
-           }
+    }
 }
-
-
 
 // MARK: - UICollectionViewDataSource
 extension PhotosViewController: UICollectionViewDataSource {
@@ -90,13 +67,17 @@ extension PhotosViewController: UICollectionViewDataSource {
         dateFormatter.dateFormat = "dd.MM.yy"
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! ImageCell
-        cell.backgroundColor = .blue
-       // cell.textLabel.text = String(indexPath.row + 1)
+        cell.contentView.frame = cell.bounds
+        cell.backgroundColor = .black
+        
+        // Set date
         let date = dateFormatter.string(from: datesCreated[indexPath.item]!)
         cell.photoDateView.text = date
+        
+        // Set image
         cell.newImageView.image = images[indexPath.item]
         cell.newImageView.contentMode = .scaleAspectFill
-        print(images[indexPath.item])
+        
         return cell
     }
 }
@@ -110,11 +91,9 @@ extension PhotosViewController: UICollectionViewDelegate {
 
 // MARK: - UICollectionViewDelegateFlowLayout
 extension PhotosViewController : UICollectionViewDelegateFlowLayout {
-  //1
   func collectionView(_ collectionView: UICollectionView,
                       layout collectionViewLayout: UICollectionViewLayout,
                       sizeForItemAt indexPath: IndexPath) -> CGSize {
-    //2
     let paddingSpace = sectionInsets.left * (itemsPerRow + 1)
     let availableWidth = view.frame.width - paddingSpace
     let widthPerItem = availableWidth / itemsPerRow
@@ -122,14 +101,12 @@ extension PhotosViewController : UICollectionViewDelegateFlowLayout {
     return CGSize(width: widthPerItem, height: widthPerItem)
   }
   
-  //3
   func collectionView(_ collectionView: UICollectionView,
                       layout collectionViewLayout: UICollectionViewLayout,
                       insetForSectionAt section: Int) -> UIEdgeInsets {
     return sectionInsets
   }
   
-  // 4
   func collectionView(_ collectionView: UICollectionView,
                       layout collectionViewLayout: UICollectionViewLayout,
                       minimumLineSpacingForSectionAt section: Int) -> CGFloat {

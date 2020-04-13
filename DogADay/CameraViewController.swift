@@ -11,60 +11,34 @@ import AVFoundation
 import MobileCoreServices
 
 class CameraViewController: UIViewController, UINavigationControllerDelegate {
-    @IBOutlet weak var loadingView: UIView!
-    
-    @IBOutlet weak var toggleFlashButton: UIButton!
-    @IBOutlet weak var captureImageButton: UIButton!
-    @IBOutlet weak var capturePreviewView: UIView!
-    
-    @IBOutlet weak var comeBackLaterView: UIView!
+    // MARK: - Variables
+    @IBOutlet weak var toggleFlashButton: UIButton!     // the flash button
+    @IBOutlet weak var captureImageButton: UIButton!    // the circle you tap to take a picture
+    @IBOutlet weak var capturePreviewView: UIView!      // the view which contains the AVCaptureSession
+    @IBOutlet weak var comeBackLaterView: UIImageView!  // the image we show if you've taken a photo today
     
     let captureSession = AVCaptureSession()
-    
+    var captureDevice: AVCaptureDevice?
     let previewLayer = AVCaptureVideoPreviewLayer() // TODO is this a bug? later on we construct it with a session as an object
-    
     var photoOutput: AVCapturePhotoOutput?
     var photoCaptureCompletionBlock: ((UIImage?, Error?) -> Void)?
     
-    var captureDevice: AVCaptureDevice?
-
-    var flashMode = AVCaptureDevice.FlashMode.off
+    var flashMode = AVCaptureDevice.FlashMode.off // whether flash is on or off
     
-    var currentImage: UIImage?
-
-    var windowOrientation: UIInterfaceOrientation {
-        return view.window?.windowScene?.interfaceOrientation ?? .unknown
-    }
-    
-    // Communicate with the session and other session objects on this queue.
-    // private let sessionQueue = DispatchQueue(label: "session queue")
-
+    var currentImage: UIImage? // the image we just took
+            
+    // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         
         comeBackLaterView.isHidden = true
+        checkIfShouldShowCamera()
         
         // Set up capture image button
         captureImageButton.layer.borderColor = UIColor.gray.cgColor
         captureImageButton.layer.borderWidth = 2
         captureImageButton.layer.cornerRadius = min(captureImageButton.frame.width, captureImageButton.frame.height) / 2
 
-        ImagesHelper.haveTakenPhotoToday(onSuccess: {(haveTakenPhotoToday) in
-            print("haveTakenPhotoToday: \(haveTakenPhotoToday)")
-            if haveTakenPhotoToday {
-                self.showComeBackLaterView()
-            }
-            else {
-                print("Haven't taken a photo today, let's take a photo")
-                // PARIS DEBUG TODO - Should we call all the rest of the code only after we get back from this?
-                // Would make it cleaner probably
-            }
-            }) { (error) in
-              if let error = error {
-                  print("Error in checking if have taken photo today: \(error.localizedDescription)")
-              }
-        }
-        
         // Check for permissions and initialize the ACCaptureSession if we are ok
         if !UIImagePickerController.isSourceTypeAvailable(.camera){
            // Prevents crashing in the simulator
@@ -104,56 +78,54 @@ class CameraViewController: UIViewController, UINavigationControllerDelegate {
         } else if authStatus == AVAuthorizationStatus.notDetermined {
            AVCaptureDevice.requestAccess(for: AVMediaType.video, completionHandler: { (granted) in
                if granted {
-                  // self.sessionQueue.async {
-                    self.showCameraUsingAV()
-                 //  }
+                    self.showCamera()
                }
            })
         } else {
-           //sessionQueue.async {
-            self.showCameraUsingAV()
-           //}
+            self.showCamera()
         }
                        
        let tapToFocusGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapToFocus))
        self.view.addGestureRecognizer(tapToFocusGestureRecognizer)
     }
     
+    // MARK: - viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        captureSession.startRunning()
+        
+        ImagesHelper.haveTakenPhotoToday(onSuccess: {(haveTakenPhotoToday) in
+            print("haveTakenPhotoToday: \(haveTakenPhotoToday)")
+            if !haveTakenPhotoToday {
+                self.captureSession.startRunning()
+            }
+            }) { (error) in
+              if let error = error {
+                  print("Error in checking if have taken photo today: \(error.localizedDescription)")
+              }
+        }
+        
+        checkIfShouldShowCamera()
+        
+        print("PARIS DEBUG APPEAR")
     }
     
+    // MARK: - viewDidAppear
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        loadingView.isHidden = true // TODO - test whether this is actually useful
     }
     
+    // MARK: - viewDidDisappear
     override func viewDidDisappear(_ animated: Bool) {
-        loadingView.isHidden = false
-
         if captureSession.isRunning {
             captureSession.stopRunning()
-        } else {
-            captureSession.startRunning()
         }
     }
 }
 
+// MARK: - Setting up the camera
 extension CameraViewController {
-    func showComeBackLaterView() {
-        // Clean up camera
-        
-        // Show come back later view
-        comeBackLaterView.isHidden = false
-    }
-}
-
-extension CameraViewController {
-    
-    func showCameraUsingAV() {
+    func showCamera() {
         self.captureDevice = AVCaptureDevice.default(for: .video)
         guard let captureDevice = self.captureDevice else {
             print("Error - No capture device")
@@ -212,20 +184,8 @@ extension CameraViewController {
     }
 }
 
+// MARK: - AVCapturePhotoCaptureDelegate
 extension CameraViewController: AVCapturePhotoCaptureDelegate {
-
-//    // https://developer.apple.com/documentation/avfoundation/cameras_and_media_capture/avcam_building_a_camera_app
-//    // Flash a white screen
-//    func photoOutput(_ output: AVCapturePhotoOutput, willCapturePhotoFor resolvedSettings: AVCaptureResolvedPhotoSettings) {
-//       DispatchQueue.main.async {
-//        self.previewLayer.backgroundColor = UIColor.red.cgColor
-//           self.previewLayer.opacity = 0
-//           UIView.animate(withDuration: 2) {
-//               self.previewLayer.opacity = 1
-//           }
-//       }
-//    }
-//
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
 
         // Check if there is any error in capturing
@@ -274,11 +234,15 @@ extension CameraViewController: AVCapturePhotoCaptureDelegate {
         
         imageReviewViewController.image = self.currentImage
         imageReviewViewController.hidesBottomBarWhenPushed = true
+        imageReviewViewController.onDoneBlock = { success in
+            
+        }
 
         present(imageReviewViewController, animated: true, completion: nil)
     }
 }
 
+// MARK: - Tap to focus
 extension CameraViewController {
     @objc func tapToFocus(recognizer: UITapGestureRecognizer) {
         let location = recognizer.location(in: recognizer.view)
@@ -311,6 +275,7 @@ extension CameraViewController {
     }
 }
 
+// MARK: - Buttons (flash and capture image)
 extension CameraViewController {
     @IBAction func toggleFlash(_ sender: Any) {
         if flashMode == .on {
@@ -343,8 +308,33 @@ extension CameraViewController {
     }
 }
 
-
-
-
-// Stop video capturing session (Freeze preview)
-//captureSession.stopRunning()
+// MARK: - ComeBackLaterView
+extension CameraViewController {
+    func showComeBackLaterView() {
+        DispatchQueue.main.async {
+            // Clean up camera
+            self.captureSession.stopRunning()
+            
+            // Show come back later view
+            self.comeBackLaterView.isHidden = false
+            
+            // Hide other views
+            self.capturePreviewView.isHidden = true
+            self.captureImageButton.isHidden = true
+            self.toggleFlashButton.isHidden = true
+        }
+    }
+    
+    func checkIfShouldShowCamera() {
+        ImagesHelper.haveTakenPhotoToday(onSuccess: {(haveTakenPhotoToday) in
+            print("haveTakenPhotoToday: \(haveTakenPhotoToday)")
+            if haveTakenPhotoToday {
+                self.showComeBackLaterView()
+            }
+            }) { (error) in
+              if let error = error {
+                  print("Error in checking if have taken photo today: \(error.localizedDescription)")
+              }
+        }
+    }
+}
